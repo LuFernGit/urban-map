@@ -9,7 +9,7 @@ export default function TelaLogin({ navigation }) {
         style={styles.logo}
         resizeMode="contain"
       />
-      
+
       <Text style={styles.title}>Bem-vindo de volta!</Text>
 
       <TextInput
@@ -18,23 +18,29 @@ export default function TelaLogin({ navigation }) {
         keyboardType="email-address"
         autoCapitalize="none"
       />
-      
+
       <TextInput
         placeholder="Digite sua senha"
         style={styles.input}
         secureTextEntry
       />
 
-      <TouchableOpacity style={styles.button} onPress={() => alert('Fazendo login...')}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => alert('Fazendo login...')}
+      >
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-  onPress={() => navigation.navigate('Cadastro')}
-  style={styles.footer}
->
+        onPress={() => navigation.navigate('Cadastro')}
+        style={styles.footer}
+      >
         <Text>
-          Não tem uma conta? <Text style={{ color: 'blue', fontWeight: 'bold' }}>Cadastre-se agora.</Text>
+          Não tem uma conta?{' '}
+          <Text style={{ color: 'blue', fontWeight: 'bold' }}>
+            Cadastre-se agora.
+          </Text>
         </Text>
       </TouchableOpacity>
     </View>
