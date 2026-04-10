@@ -2,14 +2,11 @@ package br.com.senac.urbanmap.entities.usuario;
 
 public enum Funcao {
     USUARIO("usuario"), ADMINISTRADOR("administrador");
-
-    String nivel;
-
-    Funcao(String nivel) {
-        this.nivel = nivel;
+    String tipo;
+    Funcao(String tipo) {
+        this.tipo = tipo;
     }
-
-    public String getNivel() {
-        return nivel;
+    public String getTipo() {
+        return tipo;
     }
 }

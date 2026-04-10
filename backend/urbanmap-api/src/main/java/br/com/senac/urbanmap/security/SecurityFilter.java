@@ -1,6 +1,7 @@
 package br.com.senac.urbanmap.security;
 
 import br.com.senac.urbanmap.repositories.UsuarioRepository;
+import br.com.senac.urbanmap.services.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

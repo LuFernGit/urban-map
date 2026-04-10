@@ -1,4 +1,4 @@
-package br.com.senac.urbanmap.security;
+package br.com.senac.urbanmap.services;
 
 import br.com.senac.urbanmap.repositories.UsuarioRepository;
 import org.springframework.security.core.userdetails.UserDetails;

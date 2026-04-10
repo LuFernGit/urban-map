@@ -1,4 +1,4 @@
-package br.com.senac.urbanmap.security;
+package br.com.senac.urbanmap.services;
 
 import br.com.senac.urbanmap.entities.usuario.Usuario;
 import com.auth0.jwt.JWT;
@@ -6,10 +6,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.stereotype.Service;
-
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 @Service
 public class TokenService {
@@ -20,7 +16,6 @@ public class TokenService {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create().
                     withIssuer("urbanmap-api").
-                    withExpiresAt(pegarHorarioDeExpiracao()).
                     withSubject(usuario.getEmail()).sign(algorithm);
         } catch (JWTCreationException e) {
             throw new JWTCreationException("Falha ao criar o token", e.getCause());
@@ -36,10 +31,6 @@ public class TokenService {
         } catch (JWTVerificationException e) {
             return null;
         }
-    }
-
-    private Instant pegarHorarioDeExpiracao() {
-        return LocalDateTime.now().plusDays(1).toInstant(ZoneOffset.of("-03:00"));
     }
 
 }

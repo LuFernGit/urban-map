@@ -18,7 +18,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class ConfiguracaoSeguranca {
-    private SecurityFilter securityFilter;
+    private static final String ADMIN = "ADMIN";
+    private final SecurityFilter securityFilter;
 
     public ConfiguracaoSeguranca(SecurityFilter securityFilter) {
         this.securityFilter = securityFilter;
@@ -30,8 +31,12 @@ public class ConfiguracaoSeguranca {
         return httpSecurity.csrf(csrf -> csrf.disable()).
                 sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).
                 authorizeHttpRequests(authorize -> authorize.
-                        requestMatchers(HttpMethod.POST, "/usuario/cadastro").permitAll().
-                        requestMatchers(HttpMethod.POST, "/usuario/login").permitAll().
+                        requestMatchers(HttpMethod.POST, "/cadastro").permitAll().
+                        requestMatchers(HttpMethod.POST, "/login").permitAll().
+                        requestMatchers(HttpMethod.GET, "/tag").hasAnyRole(ADMIN, "USER").
+                        requestMatchers(HttpMethod.POST, "/tag").hasRole(ADMIN).
+                        requestMatchers(HttpMethod.PUT, "/tag").hasRole(ADMIN).
+                        requestMatchers(HttpMethod.DELETE, "/tag/**").hasRole(ADMIN).
                         anyRequest().authenticated()).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

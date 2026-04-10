@@ -14,20 +14,21 @@ import java.time.LocalDate;
 public class ConfiguracaoBancoDados {
 
     UsuarioRepository usuarioRepo;
-    PasswordEncoder encoder;
+    PasswordEncoder passwordEncoder;
 
-    public ConfiguracaoBancoDados(UsuarioRepository usuarioRepo, PasswordEncoder encoder) {
+    public ConfiguracaoBancoDados(UsuarioRepository usuarioRepo, PasswordEncoder passwordEncoder) {
         this.usuarioRepo = usuarioRepo;
-        this.encoder = encoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
+    // usuário padrão
     @Bean
     CommandLineRunner configuracaoInicial() {
         return args -> {
             if (usuarioRepo.count() == 0) {
                 Usuario admin = Usuario.builder().nome("Administrador").
                         nomeUsuario("Admin").dataNascimento(LocalDate.now()).email("admin.urbanmap@gmail.com").
-                        senha(encoder.encode("admin1234")).funcao(Funcao.ADMINISTRADOR).telefone("119999999999").build();
+                            senha(passwordEncoder.encode("admin1234")).funcao(Funcao.ADMINISTRADOR).telefone("119999999999").build();
                 usuarioRepo.save(admin);
             }
         };

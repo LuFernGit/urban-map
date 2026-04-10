@@ -1,6 +1,6 @@
 package br.com.senac.urbanmap.exception;
 
-import br.com.senac.urbanmap.entities.dtos.ErroValidationDto;
+import br.com.senac.urbanmap.entities.dtos.ErroValidationDTO;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,11 +17,11 @@ public class TratadorDeErro {
 
     // as exceções do validation
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<List<ErroValidationDto>> tratadorErrosParametros(MethodArgumentNotValidException e) {
+    public ResponseEntity<List<ErroValidationDTO>> tratadorErrosParametros(MethodArgumentNotValidException e) {
         List<FieldError> errosSemFormatacao = e.getFieldErrors();
-        List<ErroValidationDto> errosComFormatacao = new ArrayList<>();
+        List<ErroValidationDTO> errosComFormatacao = new ArrayList<>();
         for (FieldError erro : errosSemFormatacao) {
-            errosComFormatacao.add(new ErroValidationDto(erro));
+            errosComFormatacao.add(new ErroValidationDTO(erro));
         }
         return ResponseEntity.badRequest().body(errosComFormatacao);
     }
