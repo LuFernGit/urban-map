@@ -1,6 +1,6 @@
 package br.com.senac.urbanmap.services;
 
-import br.com.senac.urbanmap.entities.dtos.TagCadastroDTO;
+import br.com.senac.urbanmap.controllers.dtos.TagCadastroDTO;
 import br.com.senac.urbanmap.entities.tag.Tag;
 import br.com.senac.urbanmap.repositories.TagRepository;
 import org.springframework.stereotype.Service;

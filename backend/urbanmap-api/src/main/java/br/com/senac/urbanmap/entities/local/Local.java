@@ -31,5 +31,4 @@ public class Local {
     private BigDecimal longitude;
     @ManyToMany
     private Set<Tag> tags;
-
 }

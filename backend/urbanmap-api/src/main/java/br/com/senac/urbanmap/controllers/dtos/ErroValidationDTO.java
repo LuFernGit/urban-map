@@ -1,4 +1,4 @@
-package br.com.senac.urbanmap.entities.dtos;
+package br.com.senac.urbanmap.controllers.dtos;
 
 import org.springframework.validation.FieldError;
 

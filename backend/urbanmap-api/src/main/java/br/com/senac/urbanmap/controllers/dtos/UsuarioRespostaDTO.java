@@ -1,4 +1,4 @@
-package br.com.senac.urbanmap.entities.dtos;
+package br.com.senac.urbanmap.controllers.dtos;
 
 import br.com.senac.urbanmap.entities.usuario.Funcao;
 import br.com.senac.urbanmap.entities.usuario.Usuario;
@@ -6,31 +6,36 @@ import br.com.senac.urbanmap.entities.usuario.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
-public record UsuarioDetalhesDTO(
+public record UsuarioRespostaDTO(
         Long id,
         String nome,
         String nomeUsuario,
         String imagemUrl,
         String email,
         String telefone,
-        Funcao funcao
+        String funcao,
+        String token
 ) {
-    public static UsuarioDetalhesDTO converterParaDTO(Usuario usuario) {
-        return new UsuarioDetalhesDTO(
+    public static UsuarioRespostaDTO converterParaDTO(Usuario usuario, String token) {
+        return new UsuarioRespostaDTO(
                 usuario.getId(),
                 usuario.getNome(),
                 usuario.getNomeUsuario(),
                 usuario.getImagemUrl(),
                 usuario.getEmail(),
                 usuario.getTelefone(),
-                usuario.getFuncao());
+                usuario.getFuncao().getTipo(),
+                token);
     }
 
-    public static List<UsuarioDetalhesDTO> converterListaParaDTO(List<Usuario> usuarios) {
-        List<UsuarioDetalhesDTO> listaDTO = new ArrayList<>();
+    // por enquanto deixa comentado
+    /*
+    public static List<UsuarioRespostaDTO> converterListaParaDTO(List<Usuario> usuarios) {
+        List<UsuarioRespostaDTO> listaDTO = new ArrayList<>();
         usuarios.forEach(usuario ->
-                listaDTO.add(UsuarioDetalhesDTO.converterParaDTO(usuario))
+                listaDTO.add(UsuarioRespostaDTO.converterParaDTO(usuario))
         );
         return listaDTO;
     }
+    */
 }

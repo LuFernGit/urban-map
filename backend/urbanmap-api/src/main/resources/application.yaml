@@ -28,5 +28,9 @@ urbanmap:
     dir-usuario: "usuarios"
     dir-locais: "locais"
 
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
 server:
   port: 5050

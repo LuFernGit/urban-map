@@ -1,9 +1,8 @@
 package br.com.senac.urbanmap.controllers;
 
-import br.com.senac.urbanmap.entities.dtos.UsuarioAutenticadoDTO;
-import br.com.senac.urbanmap.entities.dtos.UsuarioDetalhesDTO;
-import br.com.senac.urbanmap.entities.dtos.UsuarioLoginDTO;
-import br.com.senac.urbanmap.entities.dtos.UsuarioDadosCadastroDTO;
+import br.com.senac.urbanmap.controllers.dtos.UsuarioRespostaDTO;
+import br.com.senac.urbanmap.controllers.dtos.UsuarioLoginDTO;
+import br.com.senac.urbanmap.controllers.dtos.UsuarioCadastroDTO;
 import br.com.senac.urbanmap.entities.usuario.Usuario;
 import br.com.senac.urbanmap.services.TokenService;
 import br.com.senac.urbanmap.services.UsuarioService;
@@ -33,37 +32,35 @@ public class UsuarioController {
         this.tokenService = tokenService;
     }
 
-    @GetMapping("/usuarios")
-    public ResponseEntity<List<UsuarioDetalhesDTO>> buscaTodos() {
-        return ResponseEntity.ok(this.usuarioService.buscarTodos());
-    }
+//    @GetMapping("/usuarios")
+//    public ResponseEntity<List<UsuarioRespostaDTO>> buscarTodos() {
+//        return ResponseEntity.ok(this.usuarioService.buscarTodos());
+//    }
 
 
     @PostMapping("/cadastro")
-    public ResponseEntity<UsuarioAutenticadoDTO> cadastro(@Valid @RequestBody UsuarioDadosCadastroDTO dto) {
+    public ResponseEntity<UsuarioRespostaDTO> cadastro(@Valid @RequestBody UsuarioCadastroDTO dto) {
         Usuario usuario = usuarioService.cadastrar(dto);
-        UsuarioDetalhesDTO usuarioDetalhesDTO = UsuarioDetalhesDTO.converterParaDTO(usuario);
-        UsuarioAutenticadoDTO usuarioAutenticado = new UsuarioAutenticadoDTO(tokenService.geradorDeToken(usuario), usuarioDetalhesDTO);
-        return ResponseEntity.created(URI.create("/usuario/" + usuarioAutenticado.usuario().id())).body(usuarioAutenticado);
+        UsuarioRespostaDTO usuarioRespostaDTO = UsuarioRespostaDTO.converterParaDTO(usuario, tokenService.geradorDeToken(usuario));
+        return ResponseEntity.created(URI.create("/usuario/" + usuarioRespostaDTO.id())).body(usuarioRespostaDTO);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UsuarioAutenticadoDTO> login(@RequestBody @Valid UsuarioLoginDTO dto) {
+    public ResponseEntity<UsuarioRespostaDTO> login(@RequestBody @Valid UsuarioLoginDTO dto) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(dto.email(), dto.senha());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         Usuario usuario = (Usuario) auth.getPrincipal();
-        UsuarioDetalhesDTO usuarioDetalhesDTO = UsuarioDetalhesDTO.converterParaDTO(usuario);
-        return ResponseEntity.ok(new UsuarioAutenticadoDTO(tokenService.geradorDeToken(usuario), usuarioDetalhesDTO));
+        return ResponseEntity.ok(UsuarioRespostaDTO.converterParaDTO(usuario, tokenService.geradorDeToken(usuario)));
     }
 
     @PutMapping("/usuario/{id}/foto") // O ID vai na URL
-    public ResponseEntity<UsuarioDetalhesDTO> atualizarFoto(@PathVariable Long id, @RequestParam("foto") MultipartFile foto) {
+    public ResponseEntity<UsuarioRespostaDTO> atualizarFoto(@PathVariable Long id, @RequestParam("foto") MultipartFile foto) {
         Optional<Usuario> opt = this.usuarioService.findById(id);
         if (opt.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         Usuario usuario = this.usuarioService.atualizarImagem(opt.get(), foto);
-        return ResponseEntity.ok(UsuarioDetalhesDTO.converterParaDTO(usuario));
+        return ResponseEntity.ok(UsuarioRespostaDTO.converterParaDTO(usuario, tokenService.geradorDeToken(usuario)));
     }
 
 }

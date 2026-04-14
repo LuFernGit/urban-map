@@ -1,7 +1,6 @@
 package br.com.senac.urbanmap.controllers;
 
-import br.com.senac.urbanmap.entities.dtos.TagCadastroDTO;
-import br.com.senac.urbanmap.entities.dtos.TagTodasDTO;
+import br.com.senac.urbanmap.controllers.dtos.TagCadastroDTO;
 import br.com.senac.urbanmap.entities.tag.Tag;
 import br.com.senac.urbanmap.services.TagService;
 import jakarta.validation.Valid;
@@ -9,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("tag")
@@ -22,8 +22,8 @@ public class TagController {
     }
 
     @GetMapping()
-    public ResponseEntity<TagTodasDTO> buscar() {
-        return ResponseEntity.ok(new TagTodasDTO(this.tagService.buscar()));
+    public ResponseEntity<List<Tag>> buscar() {
+        return ResponseEntity.ok(this.tagService.buscar());
     }
 
     @PostMapping()
@@ -48,7 +48,6 @@ public class TagController {
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
         if (!this.tagService.jaCadastrado(id))
             return ResponseEntity.notFound().build();
-
         this.tagService.excluir(id);
         return ResponseEntity.noContent().build();
     }

@@ -1,8 +1,8 @@
 package br.com.senac.urbanmap.services;
 
-import br.com.senac.urbanmap.entities.dtos.UsuarioDetalhesDTO;
+import br.com.senac.urbanmap.controllers.dtos.UsuarioRespostaDTO;
 import br.com.senac.urbanmap.entities.usuario.Usuario;
-import br.com.senac.urbanmap.entities.dtos.UsuarioDadosCadastroDTO;
+import br.com.senac.urbanmap.controllers.dtos.UsuarioCadastroDTO;
 import br.com.senac.urbanmap.exception.ErroUsuarioServiceException;
 import br.com.senac.urbanmap.repositories.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,12 +27,12 @@ public class UsuarioService {
     }
 
 
-    public List<UsuarioDetalhesDTO> buscarTodos() {
-        return UsuarioDetalhesDTO.converterListaParaDTO(this.usuarioRepo.findAll());
-    }
+//    public List<UsuarioRespostaDTO> buscarTodos() {
+//        return UsuarioRespostaDTO.converterListaParaDTO(this.usuarioRepo.findAll());
+//    }
 
 
-    public Usuario cadastrar(UsuarioDadosCadastroDTO dto) throws ErroUsuarioServiceException {
+    public Usuario cadastrar(UsuarioCadastroDTO dto) throws ErroUsuarioServiceException {
         if (emailCadastrado(dto))
             throw new ErroUsuarioServiceException("E-mail já está cadastrado.");
 
@@ -43,7 +43,7 @@ public class UsuarioService {
         if (!idadeValida(dto))
             throw new ErroUsuarioServiceException("Cadastro autorizado somente para pessoas com no minimo 16 anos.");
 
-        Usuario usuario = UsuarioDadosCadastroDTO.converterParaUsuario(dto, passwordEncoder);
+        Usuario usuario = UsuarioCadastroDTO.converterParaUsuario(dto, passwordEncoder);
 
         usuario.setImagemUrl(FOTO_PADRAO);
 
@@ -60,16 +60,16 @@ public class UsuarioService {
     }
 
     // Auxiliares
-    private boolean idadeValida(UsuarioDadosCadastroDTO dto) {
+    private boolean idadeValida(UsuarioCadastroDTO dto) {
         LocalDate dataLimite = LocalDate.now().minusYears(16);
         return !dto.dataNascimento().isAfter(dataLimite);
     }
 
-    private boolean emailCadastrado(UsuarioDadosCadastroDTO dto) {
+    private boolean emailCadastrado(UsuarioCadastroDTO dto) {
         return usuarioRepo.existsByEmail(dto.email());
     }
 
-    private boolean nomeUsuarioCadastrado(UsuarioDadosCadastroDTO dto) {
+    private boolean nomeUsuarioCadastrado(UsuarioCadastroDTO dto) {
         return usuarioRepo.existsBynomeUsuario(dto.nomeUsuario());
     }
 

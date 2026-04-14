@@ -1,6 +1,6 @@
 package br.com.senac.urbanmap.exception;
 
-import br.com.senac.urbanmap.entities.dtos.ErroValidationDTO;
+import br.com.senac.urbanmap.controllers.dtos.ErroValidationDTO;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
