@@ -26,6 +26,7 @@ public class ConfiguracaoSeguranca {
     }
 
     // para acessar as fotos: http://localhost:5050/uploads/subpasta(usuarios/locais)/nome da foto.extensão
+    // para acessar os endpoints de forma visual: http://localhost:5050/swagger-ui/index.html#
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -34,13 +35,14 @@ public class ConfiguracaoSeguranca {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/locais/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/cadastro", "/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/usuarios").hasRole(ADMIN)
                         .requestMatchers(HttpMethod.POST, "/tag").hasRole(ADMIN)
                         .requestMatchers(HttpMethod.PUT, "/tag").hasRole(ADMIN)
                         .requestMatchers(HttpMethod.DELETE, "/tag/**").hasRole(ADMIN)
-                        .requestMatchers(HttpMethod.PUT, "/usuario/*/foto").hasAnyRole(USER, ADMIN)
+                        .requestMatchers(HttpMethod.PUT, "/*/foto").hasAnyRole(USER, ADMIN)
                         .requestMatchers(HttpMethod.GET, "/tag").hasAnyRole(USER, ADMIN)
                         .anyRequest().authenticated()
                 )

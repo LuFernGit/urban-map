@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("tag")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class TagController {
 
     private final TagService tagService;

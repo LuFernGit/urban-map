@@ -54,7 +54,7 @@ public class Usuario implements UserDetails {
     private @Getter Set<Local> locaisFavoritos;
 
     @ManyToMany
-    @JoinTable
+    @JoinTable(name = "locais_salvos")
     private @Getter Set<Local> locaisSalvos;
 
     @Column(name = "telefone", length = 15, nullable = false)
