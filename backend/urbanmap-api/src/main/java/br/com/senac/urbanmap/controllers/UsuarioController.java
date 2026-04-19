@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping()
 @CrossOrigin(origins = "*")
 public class UsuarioController {
 
@@ -41,9 +41,7 @@ public class UsuarioController {
     @PostMapping("/cadastro")
     public ResponseEntity<UsuarioRespostaDTO> cadastro(@Valid @RequestBody UsuarioCadastroDTO dto) {
         Usuario usuario = usuarioService.cadastrar(dto);
-
         UsuarioRespostaDTO usuarioRespostaDTO = UsuarioRespostaDTO.converterParaDTO(usuario, tokenService.geradorDeToken(usuario));
-
         return ResponseEntity.created(URI.create("/usuario/" + usuarioRespostaDTO.id())).body(usuarioRespostaDTO);
     }
 
@@ -55,7 +53,7 @@ public class UsuarioController {
         return ResponseEntity.ok(UsuarioRespostaDTO.converterParaDTO(usuario, tokenService.geradorDeToken(usuario)));
     }
 
-    @PutMapping("/{id}/foto") // O ID vai na URL
+    @PutMapping("/usuario/{id}/foto") // O ID vai na URL
     public ResponseEntity<UsuarioRespostaDTO> atualizarFoto(@PathVariable Long id, @RequestParam("foto") MultipartFile foto) {
         Optional<Usuario> opt = this.usuarioService.findById(id);
         if (opt.isEmpty()) {

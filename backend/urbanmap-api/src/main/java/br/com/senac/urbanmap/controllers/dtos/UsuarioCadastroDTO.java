@@ -10,12 +10,12 @@ import java.util.HashSet;
 
 
 public record UsuarioCadastroDTO(
-        @NotBlank(message = "O nome é obrigatório") @Size(max = 100) String nome,
-        @NotBlank(message = "O nome de usuário é obrigatório") @Size(max = 100) String nomeUsuario,
-        @NotBlank(message = "O email é obrigatório") @Email(message = "Email inválido") String email,
-        @NotBlank(message = "A senha é obrigatória") String senha,
-        @NotBlank(message = "O telefone é obrigatório") @Size(max = 15) String telefone,
-        @NotNull(message = "A data de nascimento é obrigatória") LocalDate dataNascimento
+        @NotBlank(message = "Nome é obrigatório") @Size(max = 100) String nome,
+        @NotBlank(message = "Nome de usuário é obrigatório") @Size(max = 100) String nomeUsuario,
+        @NotBlank(message = "Email é obrigatório") @Email(message = "Email inválido") String email,
+        @NotBlank(message = "Senha é obrigatório") String senha,
+        @NotBlank(message = "Telefone é obrigatório") @Size(max = 15) String telefone,
+        @NotNull(message = "Data de nascimento é obrigatório") LocalDate dataNascimento
 ) {
     public static Usuario converterParaUsuario(UsuarioCadastroDTO dto, PasswordEncoder passwordEncoder) {
         return Usuario

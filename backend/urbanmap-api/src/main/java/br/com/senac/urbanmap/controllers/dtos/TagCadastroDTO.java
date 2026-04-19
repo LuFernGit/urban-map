@@ -5,9 +5,9 @@ import br.com.senac.urbanmap.entities.tag.Tag;
 import jakarta.validation.constraints.NotBlank;
 
 public record TagCadastroDTO(
-        @NotBlank(message = "o campo 'nome' é obrigatório") String nome,
-        @NotBlank(message = "o campo 'categoria' é obrigatório") String categoria,
-        @NotBlank(message = "o campo 'cor' é obrigatorio") String cor
+        @NotBlank(message = "Nome é obrigatório") String nome,
+        @NotBlank(message = "Categoria é obrigatório") String categoria,
+        @NotBlank(message = "Cor é obrigatorio") String cor
 ) {
     public static Tag converterParaTag(TagCadastroDTO dto) {
         return Tag.builder()

@@ -1,4 +1,4 @@
-package br.com.senac.urbanmap.security;
+package br.com.senac.urbanmap.configuration.security;
 
 import br.com.senac.urbanmap.repositories.UsuarioRepository;
 import br.com.senac.urbanmap.services.TokenService;

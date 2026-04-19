@@ -1,6 +1,6 @@
 package br.com.senac.urbanmap.configuration;
 
-import br.com.senac.urbanmap.security.SecurityFilter;
+import br.com.senac.urbanmap.configuration.security.SecurityFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -36,13 +36,13 @@ public class ConfiguracaoSeguranca {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/locais/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/usuarios/cadastro", "/usuarios/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/cadastro", "/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/usuarios").hasRole(ADMIN)
                         .requestMatchers(HttpMethod.POST, "/tag").hasRole(ADMIN)
                         .requestMatchers(HttpMethod.PUT, "/tag").hasRole(ADMIN)
                         .requestMatchers(HttpMethod.DELETE, "/tag/**").hasRole(ADMIN)
-                        .requestMatchers(HttpMethod.PUT, "/*/foto").hasAnyRole(USER, ADMIN)
+                        .requestMatchers(HttpMethod.PUT, "/usuario/*/foto").hasAnyRole(USER, ADMIN)
                         .requestMatchers(HttpMethod.GET, "/tag").hasAnyRole(USER, ADMIN)
                         .anyRequest().authenticated()
                 )

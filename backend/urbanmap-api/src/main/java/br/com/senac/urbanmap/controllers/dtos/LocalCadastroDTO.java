@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Set;
 
 public record LocalCadastroDTO(
-        @NotBlank(message = "o campo 'nome' é obrigatório") String nome,
-        @NotBlank(message = "o campo 'descrição' é obrigatoria") String descricao,
-        @NotBlank(message = "o campo 'endereço' é obrigatório") String endereco,
-        @NotBlank(message = "o campo 'cidade' é obrigatório") String cidade,
-        @NotBlank(message = "o campo 'estado' é obrigatório") String estado,
-        @NotBlank(message = "o campo 'cep' é obrigatório") String cep,
-        @NotNull(message = "o campo 'latitude' é obrigatório") BigDecimal latitude,
-        @NotNull(message = "o campo 'longitude' é obrigatorio") BigDecimal longitude,
+        @NotBlank(message = "Nome é obrigatório") String nome,
+        @NotBlank(message = "Descrição é obrigatorio") String descricao,
+        @NotBlank(message = "Endereço é obrigatório") String endereco,
+        @NotBlank(message = "Cidade é obrigatório") String cidade,
+        @NotBlank(message = "Estado é obrigatório") String estado,
+        @NotBlank(message = "Cep é obrigatório") String cep,
+        @NotNull(message = "Latitude é obrigatório") BigDecimal latitude,
+        @NotNull(message = "Longitude é obrigatorio") BigDecimal longitude,
         List<String> urls,
         Set<Long> tagsId
 ) {
@@ -34,6 +34,7 @@ public record LocalCadastroDTO(
                 .longitude(dto.longitude())
                 .qtdLike(0L)
                 .qtdSalvo(0L)
+                .tags(tags)
                 .build();
     }
 }
