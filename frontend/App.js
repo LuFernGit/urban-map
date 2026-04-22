@@ -9,6 +9,7 @@ import TelaLocaisCurtidos from "./telas/TelaLocaisCurtidos";
 import TelaPerfilUsuario from "./telas/TelaPerfilUsuario";
 import TelaPesquisa from "./telas/TelaPesquisa";
 import TelaPrincipal from "./telas/TelaPrincipal";
+import TelaLoginWebAdm from "./telas/TelaLoginWebAdm"
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +18,7 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="LocaisCurtidos"
+          initialRouteName="TelaLoginWebAdm"
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen name="Principal" component={TelaPrincipal} />
@@ -26,6 +27,7 @@ export default function App() {
           <Stack.Screen name="PerfilUsuario" component={TelaPerfilUsuario} />
           <Stack.Screen name="EditarUsuario" component={TelaEditarUsuario} />
           <Stack.Screen name="LocaisCurtidos" component={TelaLocaisCurtidos} />
+          <Stack.Screen name="TelaLoginWebAdm" component={TelaLoginWebAdm}/>
         </Stack.Navigator>
       </NavigationContainer>
     </GestureHandlerRootView>
