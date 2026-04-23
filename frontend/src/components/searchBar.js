@@ -1,6 +1,7 @@
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 
+const ICON_SIZE = 20;
 
 export default function SearchBar({
   value,
@@ -22,10 +23,7 @@ export default function SearchBar({
         />
 
         {value.length > 0 && (
-          <TouchableOpacity
-            onPress={onClear}
-            hitSlop={10}
-          >
+          <TouchableOpacity onPress={onClear} hitSlop={10}>
             <Ionicons name="close-circle" size={ICON_SIZE} color="#999" />
           </TouchableOpacity>
         )}
@@ -38,16 +36,14 @@ export default function SearchBar({
   );
 }
 
-const ICON_SIZE = 20;
-
 const styles = StyleSheet.create({
   searchRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 16,
-    marginBottom: 12, 
-    marginTop: 5, 
+    marginBottom: 12,
+    marginTop: 5,
   },
 
   searchBox: {
@@ -56,16 +52,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#ddd",
-    borderRadius: 25, 
+    borderRadius: 25,
     paddingHorizontal: 12,
     marginRight: 12,
-    height: 44, 
-    backgroundColor: "#fff", 
+    height: 44,
+    backgroundColor: "#fff",
   },
 
   input: {
     flex: 1,
     marginLeft: 8,
-    paddingVertical: 0, 
+    paddingVertical: 0,
   },
 });

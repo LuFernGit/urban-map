@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Image,
   StyleSheet,
@@ -10,11 +10,20 @@ import {
   Dimensions,
 } from "react-native";
 
+import { useNavigation } from "@react-navigation/native";
+
+import { SalvosContext } from "../context/SalvosContext";
+
 const { width } = Dimensions.get("window");
 
 export default function Card({ lugar }) {
   const [curtido, setCurtido] = useState(false);
   const [indexAtivo, setIndexAtivo] = useState(0);
+
+  const { salvos, toggleSalvo } = useContext(SalvosContext);
+  const salvo = salvos.some((item) => item.id === lugar.id);
+
+  const navigation = useNavigation();
 
   const abrirMapa = (nome) => {
     const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
@@ -42,11 +51,7 @@ export default function Card({ lugar }) {
             scrollEventThrottle={16}
           >
             {lugar.fotosUrl.map((img, index) => (
-              <Image
-                key={index}
-                source={img} 
-                style={styles.mainImage}
-              />
+              <Image key={index} source={img} style={styles.mainImage} />
             ))}
           </ScrollView>
 
@@ -89,10 +94,16 @@ export default function Card({ lugar }) {
           </TouchableOpacity>
         </View>
 
-        <Image
-          source={require("../assets/BotaoSalvo.png")}
-          style={styles.icon}
-        />
+        <TouchableOpacity onPress={() => toggleSalvo(lugar)}>
+          <Image
+            source={
+              salvo
+                ? require("../assets/BotaoSalvoFilled.png")
+                : require("../assets/BotaoSalvo.png")
+            }
+            style={styles.icon}
+          />
+        </TouchableOpacity>
       </View>
 
       <Text style={styles.likes}>{lugar.qtdLike} curtidas</Text>

@@ -13,7 +13,6 @@ export default function NavBar() {
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate("LocaisCurtidos")}>
-        {" "}
         <Image
           source={require("../assets/BotaoLike.png")}
           style={styles.icon}
@@ -21,7 +20,6 @@ export default function NavBar() {
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate("LocaisSalvos")}>
-        {" "}
         <Image
           source={require("../assets/BotaoSalvo.png")}
           style={styles.icon}

@@ -1,23 +1,18 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Filtro from "../../components/filtro";
+import { filtrosMock } from "../../mock/FiltrosMock";
 
 export default function TelaFiltro() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Filtro</Text>
 
-      {[
-        "Tipo de lugar",
-        "Experiência",
-        "Ambiente",
-        "Pet friendly",
-        "Preço",
-        "Avaliação",
-        "Estrutura",
-      ].map((item) => (
-        <View key={item} style={styles.item}>
-          <Text>{item}</Text>
-          <Text style={styles.plus}>+</Text>
-        </View>
+      {filtrosMock.map((filtro) => (
+        <Filtro
+          key={filtro.nome}
+          label={filtro.nome}
+          opcoes={filtro.opcoes}
+        />
       ))}
 
       <View style={styles.buttons}>
@@ -32,7 +27,6 @@ export default function TelaFiltro() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -42,18 +36,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     marginBottom: 20,
-  },
-
-  item: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 15,
-    borderBottomWidth: 1,
-    borderColor: "#ddd",
-  },
-
-  plus: {
-    fontSize: 18,
+    fontWeight: "bold",
   },
 
   buttons: {
@@ -72,6 +55,7 @@ const styles = StyleSheet.create({
 
   buttonText: {
     color: "#fff",
+    fontWeight: "bold",
   },
 
   buttonSecondary: {
@@ -84,5 +68,6 @@ const styles = StyleSheet.create({
 
   buttonSecondaryText: {
     color: "#000",
+    fontWeight: "bold",
   },
 });
