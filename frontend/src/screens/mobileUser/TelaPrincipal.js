@@ -1,81 +1,72 @@
 import { useEffect, useState, useContext, useRef } from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-  Pressable,
-  Animated,
-} from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-import Header from "../../components/header";
-import SearchBar from "../../components/searchBar";
-import Card from "../../components/card";
-import NavBar from "../../components/navBar";
+import Header from "../../components/Header";
+import SearchBar from "../../components/SearchBar";
+import Card from "../../components/Card";
+import NavBar from "../../components/NavBar";
+import ScrollToTopButton from "../../components/ScrollToTopButton";
 
-import TelaFiltro from "./TelaFiltro";
+import BottomSheetComentarios from "../../components/BottomSheetComentarios";
 
 import { locaisMock } from "../../mock/LocaisMock";
-
+import { comentariosMock } from "../../mock/ComentariosMock";
 import { ConfigContext } from "../../context/ConfigContext";
 import { themes } from "../../theme/theme";
 
 export default function TelaPrincipal() {
   const [busca, setBusca] = useState("");
   const [lugares, setLugares] = useState([]);
-  const [modalVisivel, setModalVisivel] = useState(false);
+  const [comentarios, setComentarios] = useState([]);
+  const [localSelecionado, setLocalSelecionado] = useState(null);
 
-  const slideAnim = useRef(new Animated.Value(400)).current;
-  const opacityAnim = useRef(new Animated.Value(0)).current;
+  const [showButton, setShowButton] = useState(false);
 
   const { theme } = useContext(ConfigContext);
+  const navigation = useNavigation();
+
+  const scrollRef = useRef(null);
+  const bottomSheetRef = useRef(null);
 
   useEffect(() => {
-    carregar();
+    setLugares(locaisMock);
+    setComentarios(comentariosMock);
   }, []);
 
-  const carregar = async () => {
-    setLugares(locaisMock);
+  // 🔥 scroll detecta posição
+  const handleScroll = (event) => {
+    const y = event.nativeEvent.contentOffset.y;
+    setShowButton(y > 200);
   };
 
-  const abrirModal = () => {
-    setModalVisivel(true);
-
-    Animated.parallel([
-      Animated.timing(slideAnim, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }),
-      Animated.timing(opacityAnim, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true,
-      }),
-    ]).start();
+  // 🔥 volta ao topo
+  const scrollToTop = () => {
+    scrollRef.current?.scrollTo({ y: 0, animated: true });
   };
 
-  const fecharModal = () => {
-    Animated.parallel([
-      Animated.timing(slideAnim, {
-        toValue: 400,
-        duration: 250,
-        useNativeDriver: true,
-      }),
-      Animated.timing(opacityAnim, {
-        toValue: 0,
-        duration: 250,
-        useNativeDriver: true,
-      }),
-    ]).start(() => setModalVisivel(false));
+  const abrirComentarios = (lugar) => {
+    setLocalSelecionado(lugar);
+    bottomSheetRef.current?.expand();
   };
 
-  const filtrados = lugares.filter((l) =>
-    l.nome.toLowerCase().includes(busca.toLowerCase()),
+  const adicionarComentario = (novo) => {
+    setComentarios((prev) => [
+      {
+        ...novo,
+        localId: localSelecionado?.id,
+      },
+      ...prev,
+    ]);
+  };
+
+  const comentariosFiltrados = comentarios.filter(
+    (c) => c.localId === localSelecionado?.id
   );
 
-  const limparBusca = () => {
-    setBusca("");
-  };
+  const filtrados = lugares.filter((l) =>
+    l.nome.toLowerCase().includes(busca.toLowerCase())
+  );
 
   return (
     <View
@@ -85,64 +76,44 @@ export default function TelaPrincipal() {
       ]}
     >
       <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
+        ref={scrollRef}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+        contentContainerStyle={styles.scroll}
       >
         <Header />
-
-        <SearchBar
-          value={busca}
-          onChangeText={setBusca}
-          onClear={limparBusca}
-          onFilterPress={abrirModal}
-        />
+        <SearchBar value={busca} onChangeText={setBusca} />
 
         {filtrados.map((item) => (
-          <Card key={item.id} lugar={item} />
+          <Card
+            key={item.id}
+            lugar={item}
+            onComentarioPress={() => abrirComentarios(item)}
+            onPress={() =>
+              navigation.navigate("DetalhesLocal", { lugar: item })
+            }
+          />
         ))}
       </ScrollView>
 
+      {/* 🔥 botão correto */}
+      <ScrollToTopButton
+        visible={showButton}
+        onPress={scrollToTop}
+      />
+
       <NavBar />
 
-      {modalVisivel && (
-        <View style={StyleSheet.absoluteFill}>
-          {/* FUNDO ESCURO */}
-          <Pressable style={styles.overlay} onPress={fecharModal}>
-            <Animated.View style={{ flex: 1, opacity: opacityAnim }} />
-          </Pressable>
-
-          <Animated.View
-            style={[styles.modal, { transform: [{ translateX: slideAnim }] }]}
-          >
-            <TelaFiltro />
-          </Animated.View>
-        </View>
-      )}
+      <BottomSheetComentarios
+        bottomSheetRef={bottomSheetRef}
+        comentarios={comentariosFiltrados}
+        onEnviarComentario={adicionarComentario}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-
-  scrollContent: {
-    paddingBottom: 100,
-  },
-
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0,0,0,0.4)",
-  },
-
- modal: {
-  position: "absolute",
-  right: 0,
-  top: 0,
-  bottom: 0,
-  width: "80%", 
-  backgroundColor: "#fff",
-  overflow: "hidden",
-},
+  container: { flex: 1 },
+  scroll: { paddingBottom: 100 },
 });

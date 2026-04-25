@@ -6,15 +6,15 @@ import {
   TouchableOpacity,
   View,
   Linking,
-  ScrollView,
   Dimensions,
+  ScrollView,
 } from "react-native";
 
 import { SalvosContext } from "../context/SalvosContext";
 
 const { width } = Dimensions.get("window");
 
-export default function Card({ lugar, onComentarioPress, onPress }) {
+export default function CardDetalhes({ lugar, onComentarioPress }) {
   const [curtido, setCurtido] = useState(false);
   const [indexAtivo, setIndexAtivo] = useState(0);
 
@@ -22,48 +22,32 @@ export default function Card({ lugar, onComentarioPress, onPress }) {
   const salvo = salvos.some((item) => item.id === lugar.id);
 
   const abrirMapa = (nome) => {
-    const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(nome)}`;
+    const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+      nome,
+    )}`;
     Linking.openURL(url);
   };
 
   return (
     <View style={styles.card}>
-
-      {/* NOME */}
-      <Text style={styles.locationTitle}>{lugar.nome}</Text>
-
       {/* CARROSSEL */}
-      {lugar.fotosUrl?.length > 0 && (
-        <ScrollView
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          snapToInterval={width}
-          decelerationRate="fast"
-          onMomentumScrollEnd={(event) => {
-            const slide = Math.round(
-              event.nativeEvent.contentOffset.x / width
-            );
-            setIndexAtivo(slide);
-          }}
-        >
-          {lugar.fotosUrl.map((img, index) => {
-            const ImageComponent =
-              index === 0 ? TouchableOpacity : View;
-
-            return (
-              <ImageComponent
-                key={index}
-                onPress={index === 0 ? onPress : undefined}
-                activeOpacity={0.9}
-                style={{ width }}
-              >
-                <Image source={img} style={styles.mainImage} />
-              </ImageComponent>
-            );
-          })}
-        </ScrollView>
-      )}
+      <ScrollView
+        horizontal
+        pagingEnabled
+        snapToInterval={width}
+        decelerationRate="fast"
+        showsHorizontalScrollIndicator={false}
+        onMomentumScrollEnd={(event) => {
+          const slide = Math.round(event.nativeEvent.contentOffset.x / width);
+          setIndexAtivo(slide);
+        }}
+      >
+        {lugar.fotosUrl?.map((img, index) => (
+          <View key={index} style={{ width }}>
+            <Image source={img} style={styles.mainImage} />
+          </View>
+        ))}
+      </ScrollView>
 
       {/* DOTS */}
       {lugar.fotosUrl?.length > 1 && (
@@ -71,10 +55,7 @@ export default function Card({ lugar, onComentarioPress, onPress }) {
           {lugar.fotosUrl.map((_, i) => (
             <View
               key={i}
-              style={[
-                styles.dot,
-                indexAtivo === i && styles.dotActive,
-              ]}
+              style={[styles.dot, indexAtivo === i && styles.dotActive]}
             />
           ))}
         </View>
@@ -121,25 +102,21 @@ export default function Card({ lugar, onComentarioPress, onPress }) {
         </TouchableOpacity>
       </View>
 
-      {/* INFOS */}
       <Text style={styles.likes}>{lugar.qtdLike} curtidas</Text>
 
       <Text style={styles.tags}>
         {lugar.tags?.map((tag) => `#${tag.nome}`).join(" ")}
       </Text>
+
+      <Text style={styles.tituloDescricao}>Descrição:</Text>
+      <Text style={styles.descricao}>{lugar.descricao}</Text>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   card: {
     marginBottom: 20,
-  },
-
-  locationTitle: {
-    fontSize: 16,
-    fontWeight: "500",
-    marginHorizontal: 16,
-    marginBottom: 10,
   },
 
   mainImage: {
@@ -160,6 +137,12 @@ const styles = StyleSheet.create({
     gap: 16,
   },
 
+  icon: {
+    width: 20,
+    height: 20,
+    resizeMode: "contain",
+  },
+
   likes: {
     marginHorizontal: 16,
     fontSize: 13,
@@ -169,14 +152,23 @@ const styles = StyleSheet.create({
   tags: {
     marginHorizontal: 16,
     fontSize: 13,
-    marginBottom: 20,
+    marginBottom: 10,
     color: "#222",
   },
 
-  icon: {
-    width: 20,
-    height: 20,
-    resizeMode: "contain",
+  descricao: {
+    marginHorizontal: 16,
+    fontSize: 14,
+    color: "#555",
+    marginBottom: 20,
+  },
+  
+  tituloDescricao: {
+    marginHorizontal: 16,
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#000",
+    marginBottom: 4,
   },
 
   dotsContainer: {

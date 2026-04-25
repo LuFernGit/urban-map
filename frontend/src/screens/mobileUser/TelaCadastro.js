@@ -1,71 +1,142 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState } from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+
+import InputField from "../../components/InputField";
+import PrimaryButton from "../../components/PrimaryButton";
 
 export default function TelaCadastro({ navigation }) {
+  const [form, setForm] = useState({
+    nome: "",
+    email: "",
+    telefone: "",
+    nascimento: "",
+    usuario: "",
+    senha: "",
+    confirmarSenha: "",
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (field, value) => {
+    setForm({ ...form, [field]: value });
+  };
+
+  const validar = () => {
+    let novosErros = {};
+
+    if (!form.nome) novosErros.nome = true;
+    if (!form.email) novosErros.email = true;
+    if (!form.telefone) novosErros.telefone = true;
+    if (!form.nascimento) novosErros.nascimento = true;
+    if (!form.usuario) novosErros.usuario = true;
+    if (!form.senha) novosErros.senha = true;
+    if (form.senha !== form.confirmarSenha) novosErros.confirmarSenha = true;
+
+    setErrors(novosErros);
+
+    return Object.keys(novosErros).length === 0;
+  };
+
+  const handleCadastro = () => {
+    if (validar()) {
+      navigation.navigate("CadastroSucesso");
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.back} onPress={() => navigation.goBack()}>
-        ←
-      </Text>
+    <ScrollView contentContainerStyle={styles.container}>
+      {/* HEADER */}
+      <View style={styles.header}>
+        <Ionicons
+          name="chevron-back"
+          size={30}
+          color="#1e232c"
+          onPress={() => navigation.goBack()}
+        />
+      </View>
 
       <Text style={styles.title}>
-        Junte-se a nós.{'\n'}Compartilhe momentos
+        Junte-se a nós.{"\n"}Compartilhe momentos
       </Text>
 
-      <TextInput placeholder="Nome Completo" style={styles.input} />
-      <TextInput placeholder="Email" style={styles.input} />
-      <TextInput placeholder="Telefone" style={styles.input} />
-      <TextInput placeholder="Data de nascimento" style={styles.input} />
-      <TextInput placeholder="Usuário" style={styles.input} />
-      <TextInput placeholder="Senha" style={styles.input} secureTextEntry />
-      <TextInput placeholder="Confirme sua senha" style={styles.input} secureTextEntry />
+      <InputField
+        placeholder="Nome Completo"
+        value={form.nome}
+        onChangeText={(v) => handleChange("nome", v)}
+        error={errors.nome}
+      />
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('CadastroSucesso')}
-      >
-        <Text style={styles.buttonText}>Cadastre-se</Text>
-      </TouchableOpacity>
-    </View>
+      <InputField
+        placeholder="Email"
+        value={form.email}
+        onChangeText={(v) => handleChange("email", v)}
+        keyboardType="email-address"
+        error={errors.email}
+      />
+
+      <InputField
+        placeholder="Telefone"
+        value={form.telefone}
+        onChangeText={(v) => handleChange("telefone", v)}
+        keyboardType="phone-pad"
+        error={errors.telefone}
+      />
+
+      <InputField
+        placeholder="Data de nascimento"
+        value={form.nascimento}
+        onChangeText={(v) => handleChange("nascimento", v)}
+        error={errors.nascimento}
+      />
+
+      <InputField
+        placeholder="Usuário"
+        value={form.usuario}
+        onChangeText={(v) => handleChange("usuario", v)}
+        error={errors.usuario}
+      />
+
+      <InputField
+        placeholder="Senha"
+        value={form.senha}
+        onChangeText={(v) => handleChange("senha", v)}
+        secureTextEntry
+        error={errors.senha}
+      />
+
+      <InputField
+        placeholder="Confirme sua senha"
+        value={form.confirmarSenha}
+        onChangeText={(v) => handleChange("confirmarSenha", v)}
+        secureTextEntry
+        error={errors.confirmarSenha}
+      />
+
+      <PrimaryButton title="Cadastre-se" onPress={handleCadastro} />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#dff3ff',
-    padding: 25,
-    paddingTop: 60,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    paddingTop: 50,
   },
-  back: {
-    fontSize: 28,
-    marginBottom: 20,
-    color: '#1e232c',
+
+  header: {
+    width: "100%",
+    alignItems: "flex-start",
+    marginBottom: 10,
+    padding: 10,
   },
+
   title: {
     fontSize: 30,
-    fontWeight: 'bold',
-    color: '#1e232c',
-    marginBottom: 25,
-  },
-  input: {
-    backgroundColor: '#f8f8f8',
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 15,
-    borderWidth: 1,
-    borderColor: '#e8ecf4',
-  },
-  button: {
-    backgroundColor: '#1e232c',
-    padding: 16,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontWeight: "bold",
+    color: "#1e232c",
+    marginBottom: 30,
   },
 });

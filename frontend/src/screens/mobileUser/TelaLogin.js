@@ -1,48 +1,27 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+// screens/TelaLogin.js
+import { View, Text, StyleSheet } from "react-native";
+
+import Logo from "../../components/Logo";
+import InputField from "../../components/InputField";
+import PrimaryButton from "../../components/PrimaryButton";
+import AuthFooter from "../../components/AuthFooter";
 
 export default function TelaLogin({ navigation }) {
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../../assets/logo.png')}
-        style={styles.logo}
-        resizeMode="contain"
-      />
+      <Logo />
 
       <Text style={styles.title}>Bem-vindo de volta!</Text>
 
-      <TextInput
+      <InputField
         placeholder="Digite seu e-mail"
-        style={styles.input}
         keyboardType="email-address"
-        autoCapitalize="none"
       />
+      <InputField placeholder="Digite sua senha" secureTextEntry />
 
-      <TextInput
-        placeholder="Digite sua senha"
-        style={styles.input}
-        secureTextEntry
-      />
+      <PrimaryButton title="Login" onPress={() => console.log("login")} />
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => alert('Fazendo login...')}
-      >
-        <Text style={styles.buttonText}>Entrar</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Cadastro')}
-        style={styles.footer}
-      >
-        <Text>
-          Não tem uma conta?{' '}
-          <Text style={{ color: 'blue', fontWeight: 'bold' }}>
-            Cadastre-se agora.
-          </Text>
-        </Text>
-      </TouchableOpacity>
+      <AuthFooter onPress={() => navigation.navigate("Cadastro")} />
     </View>
   );
 }
@@ -50,43 +29,17 @@ export default function TelaLogin({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#dff3ff',
-    alignItems: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
     paddingTop: 80,
-  },
-  logo: {
-    width: 200,
-    height: 120,
-    marginBottom: 20,
   },
   title: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 30,
-    color: '#1e232c',
+    color: "#000",
   },
   input: {
-    width: '80%',
-    backgroundColor: '#f8f8f8',
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 15,
-    borderWidth: 1,
-    borderColor: '#e8ecf4',
-  },
-  button: {
-    width: '80%',
-    backgroundColor: '#1e232c',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  footer: {
-    marginTop: 40,
+    color: "#000",
   },
 });

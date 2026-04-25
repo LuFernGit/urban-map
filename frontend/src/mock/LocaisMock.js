@@ -5,7 +5,7 @@ export const locaisMock = [
   new Local({
     id: 1,
     nome: "Beto Carrero World",
-    descricao: "Maior parque temático da América Latina",
+    descricao: "O Beto Carrero World é o maior parque temático da América Latina, ideal para famílias que buscam diversão e lazer. Com diversas atrações para crianças e adultos, oferece uma experiência completa e inesquecível.",
     fotosUrl: [require("../assets/Locais/betocarrero.jpg")],
     endereco: "Penha - SC",
     cidade: "Penha",
@@ -32,7 +32,7 @@ export const locaisMock = [
   new Local({
     id: 2,
     nome: "Campos do Jordão",
-    descricao: "Destino turístico de inverno em SP",
+    descricao: "Campos do Jordão é um destino conhecido pelo clima agradável e ambiente aconchegante, sendo ideal para encontros românticos. Com diversas opções de lazer e gastronomia, proporciona uma experiência diferenciada e memorável.",
     fotosUrl: [require("../assets/Locais/camposJordao.jpg")],
     endereco: "Campos do Jordão - SP",
     cidade: "Campos do Jordão",
@@ -59,7 +59,7 @@ export const locaisMock = [
   new Local({
     id: 3,
     nome: "Cristo Redentor",
-    descricao: "Uma das 7 maravilhas do mundo moderno",
+    descricao: "O Cristo Redentor é um dos pontos turísticos mais icônicos do Brasil e do mundo, oferecendo uma vista panorâmica impressionante da cidade do Rio de Janeiro. Ideal para quem busca uma experiência cultural e contemplativa, é um destino imperdível, muito bem avaliado e com estrutura organizada para visitantes.",
     fotosUrl: [
       require("../assets/Locais/cristo redentor1.jpg"),
       require("../assets/Locais/cristo redentor2.jpg"),
@@ -90,7 +90,7 @@ export const locaisMock = [
   new Local({
     id: 4,
     nome: "Japan House",
-    descricao: "Centro cultural japonês em São Paulo",
+    descricao: "A Japan House é um espaço cultural moderno que apresenta exposições inovadoras sobre a cultura japonesa. Ideal para quem busca experiências diferentes e interativas, é um ambiente seguro, acessível e muito bem avaliado.",
     fotosUrl: [
       require("../assets/Locais/japanhouse1.jpg"),
       require("../assets/Locais/japanhouse2.jpg"),
@@ -120,7 +120,7 @@ export const locaisMock = [
   new Local({
     id: 5,
     nome: "MASP",
-    descricao: "Museu de Arte de São Paulo",
+    descricao: "O MASP é um dos museus mais importantes de São Paulo, ideal para quem busca uma experiência cultural e artística. Com exposições renomadas e um acervo diversificado, oferece acesso à cultura de forma acessível, sendo um ambiente seguro, bem estruturado e muito bem avaliado pelos visitantes. É um destino imperdível para quem aprecia arte e deseja explorar o cenário cultural da cidade.",
     fotosUrl: [require("../assets/Locais/masp.jpg")],
     endereco: "Av. Paulista - SP",
     cidade: "São Paulo",
@@ -147,7 +147,7 @@ export const locaisMock = [
   new Local({
     id: 6,
     nome: "Museu do Ipiranga",
-    descricao: "Museu histórico da independência do Brasil",
+    descricao: "O Museu do Ipiranga é um dos mais importantes espaços históricos do Brasil, reunindo exposições que contam a história do país. Com estrutura renovada e ambientes organizados, é ideal para quem busca conhecimento, cultura e um passeio enriquecedor em um local bem avaliado e tradicional.",
     fotosUrl: [
       require("../assets/Locais/museuIpiranga1.jpg"),
       require("../assets/Locais/museuIpiranga2.jpg"),
@@ -178,7 +178,7 @@ export const locaisMock = [
   new Local({
     id: 7,
     nome: "Parque Ibirapuera",
-    descricao: "Um dos maiores parques urbanos de São Paulo",
+    descricao: "O Parque Ibirapuera é um dos destinos mais populares de São Paulo, ideal para quem busca lazer ao ar livre, contato com a natureza e atividades culturais. Com entrada gratuita e ótima infraestrutura, é perfeito para passeios em família, encontros ou momentos com amigos, além de ser um ambiente seguro, pet friendly e muito bem avaliado pelos visitantes.",
     fotosUrl: [
       require("../assets/Locais/ibirapuera1.jpg"),
       require("../assets/Locais/ibirapuera2.jpg"),
@@ -209,7 +209,7 @@ export const locaisMock = [
   new Local({
     id: 8,
     nome: "Praia de Copacabana",
-    descricao: "Uma das praias mais famosas do mundo",
+    descricao: "A Praia de Copacabana é um dos destinos mais famosos do Brasil, ideal para quem busca diversão ao ar livre. Com ambiente animado e diversas opções de lazer, é perfeita para passeios com amigos e atividades esportivas.",
     fotosUrl: [
       require("../assets/Locais/copacabana1.webp"),
       require("../assets/Locais/copacabana2.png"),
