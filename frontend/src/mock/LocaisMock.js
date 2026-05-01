@@ -1,4 +1,5 @@
-import Local from "../models/Local";
+import Local from "../entities/Local";
+import { tagsMock } from "../mock/TagsMock";
 
 export const locaisMock = [
 
@@ -15,16 +16,9 @@ export const locaisMock = [
     longitude: -48.6137,
     qtdLike: 500,
     qtdSalvo: 200,
-    tags: [
-      { id: 1, nome: "Parque", categoria: "Tipos de lugar", cor: "#00ff00" },
-      { id: 2, nome: "Esportiva", categoria: "Experiência", cor: "#ffaa00" },
-      { id: 3, nome: "Pago", categoria: "Preço", cor: "#ff0000" },
-      { id: 4, nome: "Familiar", categoria: "Público", cor: "#00aaff" },
-      { id: 5, nome: "Não permite fumar", categoria: "Regras do local", cor: "#999999" },
-      { id: 6, nome: "Ao ar livre", categoria: "Infraestrutura", cor: "#00ffcc" },
-      { id: 7, nome: "Imperdível", categoria: "Relevância", cor: "#ffcc00" },
-      { id: 8, nome: "Estacionamento", categoria: "Comodidades", cor: "#6666ff" },
-    ],
+    tags: tagsMock.filter(tag =>
+      [5, 12, 22, 31, 43, 52, 60, 71].includes(tag.id)
+    ),
     curtidoPeloUsuario: false,
     salvoPeloUsuario: false,
   }),
@@ -42,16 +36,9 @@ export const locaisMock = [
     longitude: -45.6099,
     qtdLike: 320,
     qtdSalvo: 150,
-    tags: [
-      { id: 9, nome: "Ponto turístico", categoria: "Tipos de lugar", cor: "#00ff00" },
-      { id: 10, nome: "Arquitetônica", categoria: "Experiência", cor: "#ffaa00" },
-      { id: 11, nome: "Alto custo", categoria: "Preço", cor: "#ff0000" },
-      { id: 12, nome: "Casal", categoria: "Público", cor: "#00aaff" },
-      { id: 13, nome: "Não permite fumar", categoria: "Regras do local", cor: "#999999" },
-      { id: 14, nome: "Ao ar livre", categoria: "Infraestrutura", cor: "#00ffcc" },
-      { id: 15, nome: "Destaque do app", categoria: "Relevância", cor: "#ffcc00" },
-      { id: 16, nome: "Estacionamento", categoria: "Comodidades", cor: "#6666ff" },
-    ],
+    tags: tagsMock.filter(tag =>
+      [5, 15, 23, 30, 43, 52, 63, 71].includes(tag.id)
+    ),
     curtidoPeloUsuario: false,
     salvoPeloUsuario: true,
   }),
@@ -73,16 +60,9 @@ export const locaisMock = [
     longitude: -43.2105,
     qtdLike: 1200,
     qtdSalvo: 800,
-    tags: [
-      { id: 17, nome: "Monumento", categoria: "Tipos de lugar", cor: "#ffcc00" },
-      { id: 18, nome: "Histórica", categoria: "Experiência", cor: "#8b4513" },
-      { id: 19, nome: "Pago", categoria: "Preço", cor: "#ff0000" },
-      { id: 20, nome: "Todos os públicos", categoria: "Público", cor: "#00aaff" },
-      { id: 21, nome: "Não permite fumar", categoria: "Regras do local", cor: "#999999" },
-      { id: 22, nome: "Ao ar livre", categoria: "Infraestrutura", cor: "#00ffcc" },
-      { id: 23, nome: "Imperdível", categoria: "Relevância", cor: "#ffcc00" },
-      { id: 24, nome: "Acessibilidade", categoria: "Comodidades", cor: "#6666ff" },
-    ],
+    tags: tagsMock.filter(tag =>
+      [4, 13, 22, 30, 43, 52, 60, 72].includes(tag.id)
+    ),
     curtidoPeloUsuario: true,
     salvoPeloUsuario: true,
   }),
@@ -103,16 +83,9 @@ export const locaisMock = [
     longitude: -46.6446,
     qtdLike: 280,
     qtdSalvo: 120,
-    tags: [
-      { id: 25, nome: "Centro cultural", categoria: "Tipos de lugar", cor: "#ff0000" },
-      { id: 26, nome: "Artística", categoria: "Experiência", cor: "#ff6600" },
-      { id: 27, nome: "Gratuito", categoria: "Preço", cor: "#00cc00" },
-      { id: 28, nome: "Todos os públicos", categoria: "Público", cor: "#00aaff" },
-      { id: 29, nome: "Não permite fumar", categoria: "Regras do local", cor: "#999999" },
-      { id: 30, nome: "Espaço fechado", categoria: "Infraestrutura", cor: "#00ffcc" },
-      { id: 31, nome: "Em alta", categoria: "Relevância", cor: "#ffcc00" },
-      { id: 32, nome: "Acessibilidade", categoria: "Comodidades", cor: "#6666ff" },
-    ],
+    tags: tagsMock.filter(tag =>
+      [6, 14, 20, 30, 43, 51, 62, 72].includes(tag.id)
+    ),
     curtidoPeloUsuario: false,
     salvoPeloUsuario: false,
   }),
@@ -130,16 +103,9 @@ export const locaisMock = [
     longitude: -46.6559,
     qtdLike: 900,
     qtdSalvo: 500,
-    tags: [
-      { id: 33, nome: "Museu", categoria: "Tipos de lugar", cor: "#ff0000" },
-      { id: 34, nome: "Cultural", categoria: "Experiência", cor: "#ff6600" },
-      { id: 35, nome: "Pago", categoria: "Preço", cor: "#ff0000" },
-      { id: 36, nome: "Todos os públicos", categoria: "Público", cor: "#00aaff" },
-      { id: 37, nome: "Não permite fumar", categoria: "Regras do local", cor: "#999999" },
-      { id: 38, nome: "Espaço fechado", categoria: "Infraestrutura", cor: "#00ffcc" },
-      { id: 39, nome: "Mais popular", categoria: "Relevância", cor: "#ffcc00" },
-      { id: 40, nome: "Acessibilidade", categoria: "Comodidades", cor: "#6666ff" },
-    ],
+    tags: tagsMock.filter(tag =>
+      [1, 10, 22, 30, 43, 51, 61, 72].includes(tag.id)
+    ),
     curtidoPeloUsuario: true,
     salvoPeloUsuario: false,
   }),
@@ -161,16 +127,9 @@ export const locaisMock = [
     longitude: -46.6097,
     qtdLike: 650,
     qtdSalvo: 300,
-    tags: [
-      { id: 41, nome: "Museu", categoria: "Tipos de lugar", cor: "#8b4513" },
-      { id: 42, nome: "Histórica", categoria: "Experiência", cor: "#8b4513" },
-      { id: 43, nome: "Gratuito", categoria: "Preço", cor: "#00cc00" },
-      { id: 44, nome: "Familiar", categoria: "Público", cor: "#00aaff" },
-      { id: 45, nome: "Não permite fumar", categoria: "Regras do local", cor: "#999999" },
-      { id: 46, nome: "Espaço fechado", categoria: "Infraestrutura", cor: "#00ffcc" },
-      { id: 47, nome: "Destaque do app", categoria: "Relevância", cor: "#ffcc00" },
-      { id: 48, nome: "Banheiro", categoria: "Comodidades", cor: "#6666ff" },
-    ],
+    tags: tagsMock.filter(tag =>
+      [1, 13, 20, 31, 43, 51, 63, 73].includes(tag.id)
+    ),
     curtidoPeloUsuario: false,
     salvoPeloUsuario: true,
   }),
@@ -192,16 +151,9 @@ export const locaisMock = [
     longitude: -46.6576,
     qtdLike: 1200,
     qtdSalvo: 700,
-    tags: [
-      { id: 49, nome: "Parque", categoria: "Tipos de lugar", cor: "#00ff00" },
-      { id: 50, nome: "Esportiva", categoria: "Experiência", cor: "#ffaa00" },
-      { id: 51, nome: "Gratuito", categoria: "Preço", cor: "#00cc00" },
-      { id: 52, nome: "Com amigos", categoria: "Público", cor: "#00aaff" },
-      { id: 53, nome: "Pet friendly", categoria: "Regras do local", cor: "#999999" },
-      { id: 54, nome: "Ao ar livre", categoria: "Infraestrutura", cor: "#00ffcc" },
-      { id: 55, nome: "Mais popular", categoria: "Relevância", cor: "#ffcc00" },
-      { id: 56, nome: "Wi-Fi", categoria: "Comodidades", cor: "#6666ff" },
-    ],
+    tags: tagsMock.filter(tag =>
+      [5, 12, 20, 32, 40, 52, 61, 70].includes(tag.id)
+    ),
     curtidoPeloUsuario: true,
     salvoPeloUsuario: true,
   }),
@@ -222,16 +174,9 @@ export const locaisMock = [
     longitude: -43.1853,
     qtdLike: 2000,
     qtdSalvo: 1500,
-    tags: [
-      { id: 57, nome: "Ponto turístico", categoria: "Tipos de lugar", cor: "#00bfff" },
-      { id: 58, nome: "Esportiva", categoria: "Experiência", cor: "#ffaa00" },
-      { id: 59, nome: "Gratuito", categoria: "Preço", cor: "#00cc00" },
-      { id: 60, nome: "Todos os públicos", categoria: "Público", cor: "#00aaff" },
-      { id: 61, nome: "Permite fumar", categoria: "Regras do local", cor: "#999999" },
-      { id: 62, nome: "Ao ar livre", categoria: "Infraestrutura", cor: "#00ffcc" },
-      { id: 63, nome: "Imperdível", categoria: "Relevância", cor: "#ffcc00" },
-      { id: 64, nome: "Banheiro", categoria: "Comodidades", cor: "#6666ff" },
-    ],
+    tags: tagsMock.filter(tag =>
+      [5, 12, 20, 30, 42, 52, 60, 73].includes(tag.id)
+    ),
     curtidoPeloUsuario: false,
     salvoPeloUsuario: false,
   }),

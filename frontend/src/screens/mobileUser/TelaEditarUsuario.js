@@ -1,6 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import { usuariosMock } from "../../mock/UsuariosMock";
@@ -8,9 +15,11 @@ import { usuariosMock } from "../../mock/UsuariosMock";
 import ProfileHeader from "../../components/ProfileHeader";
 import InputField from "../../components/InputField";
 import NavBar from "../../components/NavBar";
+import { ThemeContext } from "../../context/ThemeContext";
 
 export default function TelaEditarUsuario() {
   const navigation = useNavigation();
+  const { colors } = useContext(ThemeContext);
 
   const userData = usuariosMock[1];
 
@@ -20,12 +29,11 @@ export default function TelaEditarUsuario() {
   const [telefone, setTelefone] = useState(userData.telefone);
   const [data, setData] = useState(userData.nascimento);
 
-  // 📸 foto do usuário
   const [foto, setFoto] = useState(userData.fotoPerfil);
 
-  // 📸 escolher imagem
   const escolherImagem = async () => {
-    const permissao = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const permissao =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (!permissao.granted) {
       alert("Permissão necessária para acessar a galeria!");
@@ -45,9 +53,10 @@ export default function TelaEditarUsuario() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <ScrollView contentContainerStyle={styles.content}>
         
+        {/* HEADER */}
         <ProfileHeader
           title="Editar perfil"
           onBack={() => navigation.goBack()}
@@ -58,68 +67,78 @@ export default function TelaEditarUsuario() {
         {/* FOTO */}
         <View style={styles.avatarSection}>
           <TouchableOpacity onPress={escolherImagem}>
-            <Image
-              source={foto}
-              style={styles.avatar}
-            />
+            <Image source={foto} style={styles.avatar} />
           </TouchableOpacity>
 
           <TouchableOpacity onPress={escolherImagem}>
-            <Text style={styles.changePhoto}>Alterar foto</Text>
+            <Text style={[styles.changePhoto, { color: colors.accent }]}>
+              Alterar foto
+            </Text>
           </TouchableOpacity>
         </View>
 
-        {/* FORM */}
+        {/* FORM - INPUTS AJUSTADOS */}
         <View style={styles.form}>
-          <InputField
-            label="Nome completo"
-            value={nome}
-            onChangeText={setNome}
-          />
+          
+          <View style={styles.inputWrapper}>
+            <InputField
+              label="Nome completo"
+              value={nome}
+              onChangeText={setNome}
+            />
+          </View>
 
-          <InputField
-            label="Usuário"
-            value={user}
-            onChangeText={setUser}
-          />
+          <View style={styles.inputWrapper}>
+            <InputField
+              label="Usuário"
+              value={user}
+              onChangeText={setUser}
+            />
+          </View>
 
-          <InputField
-            label="Email"
-            value={email}
-            editable={false}
-          />
+          <View style={styles.inputWrapper}>
+            <InputField
+              label="Email"
+              value={email}
+              editable={false}
+            />
+          </View>
 
-          <InputField
-            label="Telefone"
-            value={telefone}
-            onChangeText={setTelefone}
-            keyboardType="phone-pad"
-          />
+          <View style={styles.inputWrapper}>
+            <InputField
+              label="Telefone"
+              value={telefone}
+              onChangeText={setTelefone}
+              keyboardType="phone-pad"
+            />
+          </View>
 
-          <InputField
-            label="Data de nascimento"
-            value={data}
-            onChangeText={setData}
-            placeholder="dd/mm/aaaa"
-            keyboardType="numeric"
-          />
+          <View style={styles.inputWrapper}>
+            <InputField
+              label="Data de nascimento"
+              value={data}
+              onChangeText={setData}
+              placeholder="dd/mm/aaaa"
+              keyboardType="numeric"
+            />
+          </View>
+
         </View>
 
-      </View>
+      </ScrollView>
 
+      {/* NAVBAR */}
       <NavBar />
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
   },
 
   content: {
-    flex: 1,
+    paddingBottom: 40,
   },
 
   avatarSection: {
@@ -134,13 +153,19 @@ const styles = StyleSheet.create({
   },
 
   changePhoto: {
-    color: "#3aaefc",
     marginTop: 8,
+    fontWeight: "500",
   },
 
   form: {
+    width: "100%",
     alignItems: "center",
     marginTop: 20,
-    gap: 10,
+  },
+
+  inputWrapper: {
+    width: "90%",
+    maxWidth: 320,
+    marginBottom: 10,
   },
 });

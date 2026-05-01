@@ -12,10 +12,10 @@ export function ThemeProvider({ children }) {
     card: modoEscuro ? "#1e1e1e" : "#ffffff",
     border: modoEscuro ? "#333" : "#e6e6e6",
     placeholder: modoEscuro ? "#aaa" : "#888",
-    input: modoEscuro ? "#1a1a1a" : "#f0f1f2",
+    input: modoEscuro ? "#2a2a2a" : "#f0f1f2",
     accent: modoEscuro ? "#4DA3FF" : "#38B6FF",
-    primary: modoEscuro ? "#444" : "#000",
-    secondary: modoEscuro ? "#666" : "#AFAFB0",
+    primary: modoEscuro ? "#555" : "#000",
+    secondary: modoEscuro ? "#AFAFB0" : "#AFAFB0",
     buttonText: modoEscuro ? "#fff" : "#fff",
     navbar: modoEscuro ? "#000000" : "#fff"
   };

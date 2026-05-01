@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { ThemeContext } from "../context/ThemeContext";
 
-export default function Filtro({
+export default function Filter({
   label,
   opcoes = [],
   selecionados = [],
@@ -14,6 +14,11 @@ export default function Filtro({
 
   const toggle = () => setAberto((prev) => !prev);
 
+  // 🔥 verifica se está selecionado
+  const ativo = (opcao) =>
+    selecionados?.some((i) => i.id === opcao.id);
+
+  // 🔥 seleciona / desmarca (SÓ ALTERA ESTADO LOCAL DO FILTRO)
   const selecionar = (item) => {
     if (!setSelecionados) return;
 
@@ -21,8 +26,8 @@ export default function Filtro({
 
     let novos;
 
-    if (atual.includes(item)) {
-      novos = atual.filter((i) => i !== item);
+    if (atual.some((i) => i.id === item.id)) {
+      novos = atual.filter((i) => i.id !== item.id);
     } else {
       novos = [...atual, item];
     }
@@ -30,19 +35,12 @@ export default function Filtro({
     setSelecionados(novos);
   };
 
-  const ativo = (opcao) => {
-    return Array.isArray(selecionados) && selecionados.includes(opcao);
-  };
-
   return (
     <View>
-
+      {/* HEADER DO FILTRO */}
       <TouchableOpacity
         onPress={toggle}
-        style={[
-          styles.item,
-          { borderColor: colors.text + "30" },
-        ]}
+        style={[styles.item, { borderColor: colors.text + "30" }]}
       >
         <Text style={[styles.label, { color: colors.text }]}>
           {label}
@@ -55,11 +53,12 @@ export default function Filtro({
         />
       </TouchableOpacity>
 
+      {/* OPÇÕES */}
       {aberto && (
         <View style={styles.opcoes}>
           {opcoes.map((opcao) => (
             <TouchableOpacity
-              key={opcao}
+              key={opcao.id}
               style={styles.linha}
               onPress={() => selecionar(opcao)}
             >
@@ -78,13 +77,12 @@ export default function Filtro({
                   },
                 ]}
               >
-                {opcao}
+                {opcao.nome}
               </Text>
             </TouchableOpacity>
           ))}
         </View>
       )}
-
     </View>
   );
 }

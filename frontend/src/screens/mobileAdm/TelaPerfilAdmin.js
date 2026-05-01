@@ -9,7 +9,6 @@ import {
 export default function TelaPerfilAdmin({ navigation }) {
   return (
     <View style={styles.container}>
-      {/* topo */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text style={styles.back}>‹</Text>
@@ -20,7 +19,6 @@ export default function TelaPerfilAdmin({ navigation }) {
         <View style={{ width: 20 }} />
       </View>
 
-      {/* informações */}
       <Text style={styles.sectionTitle}>INFORMAÇÕES</Text>
 
       <View style={styles.infoContainer}>
@@ -35,7 +33,6 @@ export default function TelaPerfilAdmin({ navigation }) {
         </View>
       </View>
 
-      {/* adicionar local */}
       <TouchableOpacity
         style={styles.addButton}
         onPress={() => alert('Adicionar novo local')}
@@ -44,7 +41,6 @@ export default function TelaPerfilAdmin({ navigation }) {
         <Text style={styles.plus}>+</Text>
       </TouchableOpacity>
 
-      {/* sair */}
       <TouchableOpacity onPress={() => navigation.navigate('Login')}>
         <Text style={styles.logout}>Sair da conta</Text>
       </TouchableOpacity>

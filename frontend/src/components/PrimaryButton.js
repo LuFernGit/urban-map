@@ -3,7 +3,10 @@ import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 
 export default function PrimaryButton({ title, onPress, variant = "dark" }) {
-  const { colors } = useContext(ThemeContext);
+  const { colors, modoEscuro } = useContext(ThemeContext);
+
+  const textColor =
+    variant === "light" ? (modoEscuro ? "#000" : colors.text) : "#fff";
 
   return (
     <TouchableOpacity
@@ -22,10 +25,7 @@ export default function PrimaryButton({ title, onPress, variant = "dark" }) {
         style={[
           styles.text,
           {
-            color:
-              variant === "light"
-                ? colors.text || "#000"
-                : colors.buttonText || "#fff",
+            color: textColor,
           },
         ]}
       >
@@ -37,7 +37,7 @@ export default function PrimaryButton({ title, onPress, variant = "dark" }) {
 
 const styles = StyleSheet.create({
   button: {
-    width: "80%",
+    width: "100%",
     padding: 15,
     borderRadius: 10,
     alignItems: "center",

@@ -17,11 +17,11 @@ export default function TelaPerfilUsuario() {
   const { colors } = useContext(ThemeContext);
 
   const usuario = usuariosMock[1];
-
   const [foto, setFoto] = useState(usuario.fotoPerfil);
 
   const escolherImagem = async () => {
-    const permissao = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const permissao =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (!permissao.granted) {
       alert("Permissão necessária para acessar a galeria!");
@@ -45,19 +45,16 @@ export default function TelaPerfilUsuario() {
       "Deseja sair?",
       "Tem certeza que deseja sair da sua conta?",
       [
-        {
-          text: "Cancelar",
-          style: "cancel",
-        },
+        { text: "Cancelar", style: "cancel" },
         {
           text: "Sair",
+          style: "destructive",
           onPress: () => {
             navigation.reset({
               index: 0,
               routes: [{ name: "Login" }],
             });
           },
-          style: "destructive",
         },
       ]
     );
@@ -66,12 +63,16 @@ export default function TelaPerfilUsuario() {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.content}>
+        {/* HEADER */}
         <ProfileHeader
           username={usuario.usuario}
-          onSettingsPress={() => navigation.navigate("ConfigAcessibilidade")}
+          onSettingsPress={() =>
+            navigation.navigate("ConfigAcessibilidade")
+          }
           onBackPress={() => navigation.goBack()}
         />
 
+        {/* PERFIL */}
         <View style={styles.profileContainer}>
           <TouchableOpacity onPress={escolherImagem}>
             <ProfileInfo fotoPerfil={foto} name={usuario.nome} />
@@ -79,24 +80,38 @@ export default function TelaPerfilUsuario() {
 
           <ProfileStats likes={120} saved={18} />
 
-          <PrimaryButton
-            title="Editar perfil"
-            onPress={() => navigation.navigate("EditarUsuario")}
-          />
+          {/* BOTÃO AJUSTADO SEM MEXER NO COMPONENTE */}
+          <View style={styles.buttonWrapper}>
+            <PrimaryButton
+              title="Editar perfil"
+              onPress={() =>
+                navigation.navigate("EditarUsuario")
+              }
+            />
+          </View>
         </View>
 
-        <TouchableOpacity style={styles.logout} onPress={confirmarSaida}>
-          <Text style={[styles.logoutText, { color: colors.error || "red" }]}>
+        {/* LOGOUT */}
+        <TouchableOpacity
+          style={styles.logout}
+          onPress={confirmarSaida}
+        >
+          <Text
+            style={[
+              styles.logoutText,
+              { color: colors.error || "red" },
+            ]}
+          >
             Sair
           </Text>
         </TouchableOpacity>
       </View>
 
+      {/* NAVBAR */}
       <NavBar />
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -110,6 +125,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 12,
     marginTop: 20,
+  },
+
+  buttonWrapper: {
+    width: "100%",
+    paddingHorizontal: 25,
+    marginTop: 10,
   },
 
   logout: {

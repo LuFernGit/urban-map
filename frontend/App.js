@@ -14,6 +14,7 @@ import { ThemeProvider, ThemeContext } from "./src/context/ThemeContext";
 import { useContext } from "react";
 
 // screens
+//mobile user
 import TelaCadastro from "./src/screens/mobileUser/TelaCadastro";
 import TelaCadastroSucesso from "./src/screens/mobileUser/TelaCadastroSucesso";
 import TelaConfigAcessibilidade from "./src/screens/mobileUser/TelaConfigAcessibilidade";
@@ -26,6 +27,16 @@ import TelaLocaisSalvos from "./src/screens/mobileUser/TelaLocaisSalvos";
 import TelaLogin from "./src/screens/mobileUser/TelaLogin";
 import TelaPerfilUsuario from "./src/screens/mobileUser/TelaPerfilUsuario";
 import TelaPrincipal from "./src/screens/mobileUser/TelaPrincipal";
+
+//mobile Adm
+import TelaPerfilAdmin from "./src/screens/mobileAdm/TelaPerfilAdmin";
+
+//web Adm
+import TelaCadastroAdm from "./src/screens/webAdm/TelaCadastroAdm";
+import TelaDashboardAdmWeb from "@/screens/webAdm/TelaDashboardAdmWeb";
+import TelaLoginWebAdm from "@/screens/webAdm/TelaLoginWebAdm";
+import TelaPerfilAdminWeb from "@/screens/webAdm/TelaPerfilAdminWeb";
+import TelaGerenciarLocaisWeb from "@/screens/webAdm/TelaGerenciarLocaisWeb";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,10 +55,10 @@ function AppContent() {
 
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="LocaisCurtidos"
+          initialRouteName="Principal"
           screenOptions={{
             headerShown: false,
-            animation: "none"
+            animation: "none",
           }}
         >
           <Stack.Screen name="Principal" component={TelaPrincipal} />
@@ -58,11 +69,7 @@ function AppContent() {
             name="CadastroSucesso"
             component={TelaCadastroSucesso}
           />
-          <Stack.Screen
-            name="Filtro"
-            component={TelaFiltro}
-            
-          />
+          <Stack.Screen name="Filtro" component={TelaFiltro} />
           <Stack.Screen name="PerfilUsuario" component={TelaPerfilUsuario} />
           <Stack.Screen name="EditarUsuario" component={TelaEditarUsuario} />
           <Stack.Screen name="LocaisCurtidos" component={TelaLocaisCurtidos} />
@@ -71,6 +78,22 @@ function AppContent() {
           <Stack.Screen
             name="ConfigAcessibilidade"
             component={TelaConfigAcessibilidade}
+          />
+          <Stack.Screen name="PerfilAdmin" component={TelaPerfilAdmin} />
+
+          <Stack.Screen name="PerfilAdmWeb" component={TelaPerfilAdminWeb} />
+          <Stack.Screen name="CadastroAdmWeb" component={TelaCadastroAdm} />
+          <Stack.Screen
+            name="GerenciarLocaisWeb"
+            component={TelaGerenciarLocaisWeb}
+          />
+          <Stack.Screen
+            name="LoginWebAdm"
+            component={TelaLoginWebAdm}
+          />
+          <Stack.Screen
+            name="DashboardAdmWeb"
+            component={TelaDashboardAdmWeb}
           />
         </Stack.Navigator>
       </NavigationContainer>

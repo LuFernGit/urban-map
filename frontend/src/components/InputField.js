@@ -36,8 +36,8 @@ export default function InputField({
         style={[
           styles.container,
           {
-            backgroundColor: colors.card,
-            borderColor: error ? "red" : colors.text + "30",
+            backgroundColor: colors.input,
+            borderColor: error ? "red" : colors.border,
           },
           !editable && styles.containerDisabled,
         ]}
@@ -51,7 +51,7 @@ export default function InputField({
           value={value}
           editable={editable}
           placeholder={placeholder}
-          placeholderTextColor={colors.text + "70"}
+          placeholderTextColor={colors.placeholder}
           secureTextEntry={hidePassword}
           keyboardType={keyboardType}
           onChangeText={onChangeText}
@@ -77,7 +77,7 @@ export default function InputField({
 
 const styles = StyleSheet.create({
   container: {
-    width: "80%",
+    width: "100%",
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 10,

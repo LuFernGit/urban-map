@@ -14,7 +14,6 @@ import NavBar from "../../components/NavBar";
 import ScrollToTopButton from "../../components/ScrollToTopButton";
 import SearchBar from "../../components/SearchBar";
 import TelaFiltro from "../mobileUser/TelaFiltro";
-
 import BottomSheetComentarios from "../../components/BottomSheetComentarios";
 
 import { ThemeContext } from "../../context/ThemeContext";
@@ -28,6 +27,9 @@ export default function TelaPrincipal() {
   const [localSelecionado, setLocalSelecionado] = useState(null);
   const [showButton, setShowButton] = useState(false);
   const [filtroVisivel, setFiltroVisivel] = useState(false);
+
+  // 🔥 estado FINAL do filtro (aplicado na lista)
+  const [filtrosAplicados, setFiltrosAplicados] = useState([]);
 
   const { colors } = useContext(ThemeContext);
   const navigation = useNavigation();
@@ -63,12 +65,23 @@ export default function TelaPrincipal() {
   };
 
   const comentariosFiltrados = comentarios.filter(
-    (c) => c.localId === localSelecionado?.id,
+    (c) => c.localId === localSelecionado?.id
   );
 
-  const filtrados = lugares.filter((l) =>
-    l.nome.toLowerCase().includes(busca.toLowerCase()),
-  );
+  // 🔥 FILTRO FINAL
+  const filtrosIds = filtrosAplicados.map((f) => f.id);
+
+  const filtrados = lugares.filter((l) => {
+    const matchNome = l.nome
+      .toLowerCase()
+      .includes(busca.toLowerCase());
+
+    const matchTags =
+      filtrosIds.length === 0 ||
+      l.tags?.some((tag) => filtrosIds.includes(tag.id));
+
+    return matchNome && matchTags;
+  });
 
   const abrirFiltro = () => {
     setFiltroVisivel(true);
@@ -127,20 +140,21 @@ export default function TelaPrincipal() {
         onEnviarComentario={adicionarComentario}
       />
 
+      {/* 🔥 FILTRO */}
       {filtroVisivel && (
         <View style={styles.overlay}>
-          {/* fundo escuro */}
           <TouchableOpacity
             style={styles.backdrop}
             activeOpacity={1}
             onPress={() => setFiltroVisivel(false)}
           />
 
-          {/* painel lateral */}
           <View style={styles.panel}>
             <TelaFiltro
-              onAplicar={(filtros) => {
-                console.log(filtros);
+              selecionados={filtrosAplicados}
+              setSelecionados={setFiltrosAplicados}
+              onAplicar={(novos) => {
+                setFiltrosAplicados(novos);
                 setFiltroVisivel(false);
               }}
               onFechar={() => setFiltroVisivel(false)}

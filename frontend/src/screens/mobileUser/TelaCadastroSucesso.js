@@ -1,43 +1,52 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import { ThemeContext } from "../../context/ThemeContext";
 
 export default function TelaCadastroSucesso({ navigation }) {
+  const { colors } = useContext(ThemeContext);
+  const [contador, setContador] = useState(3);
+
   useEffect(() => {
-    const timer = setTimeout(() => {
+    if (contador === 0) {
       navigation.reset({
         index: 0,
         routes: [{ name: "Login" }],
       });
-    }, 3000);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setContador((prev) => prev - 1);
+    }, 1000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [contador, navigation]);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Image
         source={require("../../assets/sucesso.png")}
         style={styles.imagemSucesso}
         resizeMode="contain"
       />
 
-      <Text style={styles.title}>Cadastro realizado</Text>
+      <Text style={[styles.title, { color: colors.text }]}>
+        Cadastro realizado
+      </Text>
 
-      <Text style={styles.subtitle}>
+      <Text style={[styles.subtitle, { color: colors.text }]}>
         Seu cadastro foi realizado com sucesso
       </Text>
 
-      <Text style={styles.info}>
-        Você será redirecionado automaticamente...
+      <Text style={[styles.info, { color: colors.placeholder }]}>
+        Redirecionando em {contador}...
       </Text>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
     padding: 25,
@@ -52,20 +61,19 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 26,
     fontWeight: "bold",
-    color: "#1e232c",
     marginBottom: 10,
+    textAlign: "center",
   },
 
   subtitle: {
     fontSize: 15,
-    color: "#444",
     textAlign: "center",
     marginBottom: 10,
   },
 
   info: {
     fontSize: 13,
-    color: "#666",
     marginTop: 10,
+    textAlign: "center",
   },
 });
