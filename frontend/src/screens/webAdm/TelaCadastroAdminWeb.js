@@ -9,7 +9,7 @@ import {
   Image,
 } from "react-native";
 
-export default function TelaCadastroAdm() {
+export default function TelaCadastroAdminWeb() {
   const [data, setData] = useState("");
 
   const formatarData = (texto) => {

@@ -20,7 +20,6 @@ export default function TelaFiltro({
 }) {
   const { colors } = useContext(ThemeContext);
 
-  // 🔥 agrupa por categoria
   const grupos = tagsMock.reduce((acc, tag) => {
     if (!acc[tag.categoria]) acc[tag.categoria] = [];
     acc[tag.categoria].push(tag);
@@ -55,7 +54,6 @@ export default function TelaFiltro({
           Filtro
         </Text>
 
-        {/* 🔥 chips selecionados */}
         {chipsSelecionados.length > 0 && (
           <View style={styles.chipsContainer}>
             {chipsSelecionados.map((item) => (
@@ -72,7 +70,6 @@ export default function TelaFiltro({
           </View>
         )}
 
-        {/* 🔥 filtros por categoria */}
         {Object.entries(grupos).map(([categoria, opcoes]) => (
           <Filter
             key={categoria}
@@ -83,7 +80,6 @@ export default function TelaFiltro({
           />
         ))}
 
-        {/* BOTÕES */}
         <View style={styles.buttons}>
           
           <TouchableOpacity

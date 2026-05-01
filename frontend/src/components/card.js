@@ -29,7 +29,7 @@ export default function Card({ lugar, onComentarioPress, onPress }) {
 
   const abrirMapa = (nome) => {
     const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-      nome
+      nome,
     )}`;
     Linking.openURL(url);
   };
@@ -48,9 +48,7 @@ export default function Card({ lugar, onComentarioPress, onPress }) {
           snapToInterval={width}
           decelerationRate="fast"
           onMomentumScrollEnd={(event) => {
-            const slide = Math.round(
-              event.nativeEvent.contentOffset.x / width
-            );
+            const slide = Math.round(event.nativeEvent.contentOffset.x / width);
             setIndexAtivo(slide);
           }}
         >
@@ -79,8 +77,7 @@ export default function Card({ lugar, onComentarioPress, onPress }) {
               style={[
                 styles.dot,
                 {
-                  backgroundColor:
-                    indexAtivo === i ? colors.text : "#999",
+                  backgroundColor: indexAtivo === i ? colors.text : "#999",
                 },
               ]}
             />
@@ -98,8 +95,8 @@ export default function Card({ lugar, onComentarioPress, onPress }) {
                     ? require("../assets/BotaoLikeFilled-dark.png")
                     : require("../assets/BotaoLikeFilled.png")
                   : modoEscuro
-                  ? require("../assets/BotaoLike-dark.png")
-                  : require("../assets/BotaoLike.png")
+                    ? require("../assets/BotaoLike-dark.png")
+                    : require("../assets/BotaoLike.png")
               }
               style={styles.icon}
             />
@@ -136,8 +133,8 @@ export default function Card({ lugar, onComentarioPress, onPress }) {
                   ? require("../assets/BotaoSalvoFilled-dark.png")
                   : require("../assets/BotaoSalvoFilled.png")
                 : modoEscuro
-                ? require("../assets/BotaoSalvo-dark.png")
-                : require("../assets/BotaoSalvo.png")
+                  ? require("../assets/BotaoSalvo-dark.png")
+                  : require("../assets/BotaoSalvo.png")
             }
             style={styles.icon}
           />

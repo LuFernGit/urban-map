@@ -38,8 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingTop: 80,
-      width: "100%",
-
+    width: "100%",
   },
 
   title: {
@@ -57,6 +56,5 @@ const styles = StyleSheet.create({
     width: "100%",
     maxWidth: 300,
     alignItems: "center",
-    
   },
 });

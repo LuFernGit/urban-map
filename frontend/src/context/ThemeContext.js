@@ -17,8 +17,9 @@ export function ThemeProvider({ children }) {
     primary: modoEscuro ? "#555" : "#000",
     secondary: modoEscuro ? "#AFAFB0" : "#AFAFB0",
     buttonText: modoEscuro ? "#fff" : "#fff",
-    navbar: modoEscuro ? "#000000" : "#fff"
-  };
+    bottomNav: modoEscuro ? "#000000" : "#fff",
+    cardBorder: modoEscuro ? "#333" : "#E6E8F0",
+};
 
   return (
     <ThemeContext.Provider

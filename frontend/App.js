@@ -10,6 +10,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { CurtidosProvider } from "./src/context/CurtidosContext";
 import { SalvosProvider } from "./src/context/SalvosContext";
 import { ThemeProvider, ThemeContext } from "./src/context/ThemeContext";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 import { useContext } from "react";
 
@@ -29,12 +30,14 @@ import TelaPerfilUsuario from "./src/screens/mobileUser/TelaPerfilUsuario";
 import TelaPrincipal from "./src/screens/mobileUser/TelaPrincipal";
 
 //mobile Adm
-import TelaPerfilAdmin from "./src/screens/mobileAdm/TelaPerfilAdmin";
+import TelaGerenciarLocais from "./src/screens/mobileAdmin/TelaGerenciarLocais";
+import TelaPainelAdmin from "./src/screens/mobileAdmin/TelaPainelAdmin";
+import TelaPerfilAdmin from "./src/screens/mobileAdmin/TelaPerfilAdmin";
 
 //web Adm
-import TelaCadastroAdm from "./src/screens/webAdm/TelaCadastroAdm";
-import TelaDashboardAdmWeb from "@/screens/webAdm/TelaDashboardAdmWeb";
-import TelaLoginWebAdm from "@/screens/webAdm/TelaLoginWebAdm";
+import TelaCadastroAdminWeb from "./src/screens/webAdm/TelaCadastroAdminWeb";
+import TelaDashboardAdmWeb from "@/screens/webAdm/TelaDashboardWeb";
+import TelaLoginAdminWeb from "@/screens/webAdm/TelaLoginAdminWeb";
 import TelaPerfilAdminWeb from "@/screens/webAdm/TelaPerfilAdminWeb";
 import TelaGerenciarLocaisWeb from "@/screens/webAdm/TelaGerenciarLocaisWeb";
 
@@ -61,40 +64,48 @@ function AppContent() {
             animation: "none",
           }}
         >
-          <Stack.Screen name="Principal" component={TelaPrincipal} />
-          <Stack.Screen name="Inicial" component={TelaInicial} />
-          <Stack.Screen name="Login" component={TelaLogin} />
+          {/*mobile user*/}
+
           <Stack.Screen name="Cadastro" component={TelaCadastro} />
           <Stack.Screen
             name="CadastroSucesso"
             component={TelaCadastroSucesso}
           />
-          <Stack.Screen name="Filtro" component={TelaFiltro} />
-          <Stack.Screen name="PerfilUsuario" component={TelaPerfilUsuario} />
-          <Stack.Screen name="EditarUsuario" component={TelaEditarUsuario} />
-          <Stack.Screen name="LocaisCurtidos" component={TelaLocaisCurtidos} />
-          <Stack.Screen name="LocaisSalvos" component={TelaLocaisSalvos} />
-          <Stack.Screen name="DetalhesLocal" component={TelaDetalhesLocal} />
           <Stack.Screen
             name="ConfigAcessibilidade"
             component={TelaConfigAcessibilidade}
           />
-          <Stack.Screen name="PerfilAdmin" component={TelaPerfilAdmin} />
-
-          <Stack.Screen name="PerfilAdmWeb" component={TelaPerfilAdminWeb} />
-          <Stack.Screen name="CadastroAdmWeb" component={TelaCadastroAdm} />
+          <Stack.Screen name="DetalhesLocal" component={TelaDetalhesLocal} />
+          <Stack.Screen name="EditarUsuario" component={TelaEditarUsuario} />
+          <Stack.Screen name="Filtro" component={TelaFiltro} />
+          <Stack.Screen name="Inicial" component={TelaInicial} />
+          <Stack.Screen name="LocaisCurtidos" component={TelaLocaisCurtidos} />
+          <Stack.Screen name="LocaisSalvos" component={TelaLocaisSalvos} />
+          <Stack.Screen name="Login" component={TelaLogin} />
+          <Stack.Screen name="PerfilUsuario" component={TelaPerfilUsuario} />
+          <Stack.Screen name="Principal" component={TelaPrincipal} />
+          {/*web Adm */}
           <Stack.Screen
-            name="GerenciarLocaisWeb"
-            component={TelaGerenciarLocaisWeb}
-          />
-          <Stack.Screen
-            name="LoginWebAdm"
-            component={TelaLoginWebAdm}
+            name="CadastroAdmWeb"
+            component={TelaCadastroAdminWeb}
           />
           <Stack.Screen
             name="DashboardAdmWeb"
             component={TelaDashboardAdmWeb}
           />
+          <Stack.Screen
+            name="GerenciarLocaisWeb"
+            component={TelaGerenciarLocaisWeb}
+          />
+          <Stack.Screen name="LoginAdminWeb" component={TelaLoginAdminWeb} />
+          <Stack.Screen name="PerfilAdmWeb" component={TelaPerfilAdminWeb} />
+          {/*mobile Adm */}
+          <Stack.Screen
+            name="GerenciarLocais"
+            component={TelaGerenciarLocais}
+          />
+          <Stack.Screen name="PainelAdmin" component={TelaPainelAdmin} />
+          <Stack.Screen name="PerfilAdmin" component={TelaPerfilAdmin} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
@@ -108,7 +119,9 @@ export default function App() {
         <SalvosProvider>
           <SafeAreaProvider>
             <GestureHandlerRootView style={{ flex: 1 }}>
-              <AppContent />
+              <BottomSheetModalProvider>
+                <AppContent />
+              </BottomSheetModalProvider>
             </GestureHandlerRootView>
           </SafeAreaProvider>
         </SalvosProvider>

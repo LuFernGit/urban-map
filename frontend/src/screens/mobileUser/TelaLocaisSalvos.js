@@ -1,10 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
-import { ScrollView, StyleSheet, View, Text } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-import HeaderDetails from "../../components/HeaderDetails";
-import NavBar from "../../components/NavBar";
+import BottomNav from "../../components/BottomNav";
 import Card from "../../components/Card";
+import HeaderDetails from "../../components/HeaderDetails";
 
 import { SalvosContext } from "../../context/SalvosContext";
 import { ThemeContext } from "../../context/ThemeContext";
@@ -32,16 +32,14 @@ export default function TelaLocaisSalvos() {
       <ScrollView showsVerticalScrollIndicator={false}>
         {salvos.length === 0 ? (
           <Text style={[styles.emptyText, { color: colors.text }]}>
-            Você ainda não salvou nenhum local 📌
+            Você ainda não salvou nenhum local 
           </Text>
         ) : (
-          salvos.map((item) => (
-            <Card key={item.id} lugar={item} />
-          ))
+          salvos.map((item) => <Card key={item.id} lugar={item} />)
         )}
       </ScrollView>
 
-      <NavBar />
+      <BottomNav />
     </View>
   );
 }

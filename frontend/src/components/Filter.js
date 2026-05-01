@@ -14,11 +14,9 @@ export default function Filter({
 
   const toggle = () => setAberto((prev) => !prev);
 
-  // 🔥 verifica se está selecionado
   const ativo = (opcao) =>
     selecionados?.some((i) => i.id === opcao.id);
 
-  // 🔥 seleciona / desmarca (SÓ ALTERA ESTADO LOCAL DO FILTRO)
   const selecionar = (item) => {
     if (!setSelecionados) return;
 
@@ -37,7 +35,6 @@ export default function Filter({
 
   return (
     <View>
-      {/* HEADER DO FILTRO */}
       <TouchableOpacity
         onPress={toggle}
         style={[styles.item, { borderColor: colors.text + "30" }]}
@@ -53,7 +50,6 @@ export default function Filter({
         />
       </TouchableOpacity>
 
-      {/* OPÇÕES */}
       {aberto && (
         <View style={styles.opcoes}>
           {opcoes.map((opcao) => (

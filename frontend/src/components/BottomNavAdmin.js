@@ -2,8 +2,9 @@ import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
+import { Ionicons } from "@expo/vector-icons";
 
-export default function NavBar() {
+export default function BottomNavAdmin() {
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -14,18 +15,17 @@ export default function NavBar() {
   return (
     <View
       style={[
-        styles.NavBar,
+        styles.bottomNav,
         {
-          backgroundColor: colors.background,
-          borderTopColor: modoEscuro ? "#333" : "#eee",
+          backgroundColor: colors.card,
+          borderTopColor: colors.border,
         },
       ]}
     >
-
-      <TouchableOpacity onPress={() => navigation.navigate("Principal")}>
+      <TouchableOpacity onPress={() => navigation.navigate("PainelAdmin")}>
         <Image
           source={
-            isActive("Principal")
+            isActive("PainelAdmin")
               ? modoEscuro
                 ? require("../assets/BotaoHomeFilled-dark.png")
                 : require("../assets/BotaoHomeFilled.png")
@@ -37,40 +37,10 @@ export default function NavBar() {
         />
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate("LocaisCurtidos")}>
+      <TouchableOpacity onPress={() => navigation.navigate("PerfilAdmin")}>
         <Image
           source={
-            isActive("LocaisCurtidos")
-              ? modoEscuro
-                ? require("../assets/BotaoLikeFilled-dark.png")
-                : require("../assets/BotaoLikeFilled.png")
-              : modoEscuro
-                ? require("../assets/BotaoLike-dark.png")
-                : require("../assets/BotaoLike.png")
-          }
-          style={styles.icon}
-        />
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => navigation.navigate("LocaisSalvos")}>
-        <Image
-          source={
-            isActive("LocaisSalvos")
-              ? modoEscuro
-                ? require("../assets/BotaoSalvoFilled-dark.png")
-                : require("../assets/BotaoSalvoFilled.png")
-              : modoEscuro
-                ? require("../assets/BotaoSalvo-dark.png")
-                : require("../assets/BotaoSalvo.png")
-          }
-          style={styles.icon}
-        />
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => navigation.navigate("PerfilUsuario")}>
-        <Image
-          source={
-            isActive("PerfilUsuario")
+            isActive("PerfilAdmin")
               ? modoEscuro
                 ? require("../assets/BotaoPerfilFilled-dark.png")
                 : require("../assets/BotaoPerfilFilled.png")
@@ -82,19 +52,32 @@ export default function NavBar() {
         />
       </TouchableOpacity>
 
+      <TouchableOpacity
+        onPress={() => navigation.navigate("ConfigAcessibilidade")}
+      >
+        <Ionicons
+          name={
+            isActive("ConfigAcessibilidadeAdmin")
+              ? "settings"
+              : "settings-outline"
+          }
+          size={24}
+          color={colors.text}
+        />
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  NavBar: {
+  bottomNav: {
     position: "absolute",
     bottom: 0,
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
+    alignItems: "center",
     height: 65,
-    paddingTop: 15,
     borderTopWidth: 1,
   },
 

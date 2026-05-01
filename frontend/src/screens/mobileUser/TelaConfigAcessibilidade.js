@@ -1,48 +1,34 @@
-import { View, StyleSheet } from "react-native";
 import { useContext } from "react";
+import { StyleSheet, View } from "react-native";
 
+import BottomNav from "../../components/BottomNav";
 import HeaderDetails from "../../components/HeaderDetails";
-import NavBar from "../../components/NavBar";
 
 import AcessibilidadeCard from "../../components/AccessibilityCard";
-import TextSizeControl from "../../components/TextSizeControl";
 import SwitchOption from "../../components/SwitchOption";
+import TextSizeControl from "../../components/TextSizeControl";
 
 import { ThemeContext } from "../../context/ThemeContext";
 
 export default function TelaConfigAcessibilidade({ navigation }) {
-  const {
-    modoEscuro,
-    setModoEscuro,
-    tamanhoTexto,
-    setTamanhoTexto,
-    colors,
-  } = useContext(ThemeContext);
+  const { modoEscuro, setModoEscuro, tamanhoTexto, setTamanhoTexto, colors } =
+    useContext(ThemeContext);
 
   const styles = createStyles(colors);
 
   return (
     <View style={styles.container}>
-      <HeaderDetails
-        title="Configuração"
-        onBack={() => navigation.goBack()}
-      />
+      <HeaderDetails title="Configuração" onBack={() => navigation.goBack()} />
 
       <View style={styles.content}>
         <AcessibilidadeCard />
 
-        <TextSizeControl
-          value={tamanhoTexto}
-          setValue={setTamanhoTexto}
-        />
+        <TextSizeControl value={tamanhoTexto} setValue={setTamanhoTexto} />
 
-        <SwitchOption
-          value={modoEscuro}
-          setValue={setModoEscuro}
-        />
+        <SwitchOption value={modoEscuro} setValue={setModoEscuro} />
       </View>
 
-      <NavBar />
+      <BottomNav />
     </View>
   );
 }
@@ -51,7 +37,7 @@ const createStyles = (colors) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: colors.background, 
+      backgroundColor: colors.background,
     },
     content: {
       flex: 1,

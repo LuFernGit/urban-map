@@ -1,20 +1,21 @@
-import { useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
+import { useContext, useState } from "react";
 import {
-  View,
-  StyleSheet,
   Image,
+  ScrollView,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  ScrollView,
+  View,
 } from "react-native";
-import * as ImagePicker from "expo-image-picker";
 
 import { usuariosMock } from "../../mock/UsuariosMock";
 
-import ProfileHeader from "../../components/ProfileHeader";
+import BottomNav from "../../components/BottomNav";
 import InputField from "../../components/InputField";
-import NavBar from "../../components/NavBar";
+import ProfileHeader from "../../components/ProfileHeader";
+import PrimaryButton from "../../components/PrimaryButton";
 import { ThemeContext } from "../../context/ThemeContext";
 
 export default function TelaEditarUsuario() {
@@ -24,16 +25,14 @@ export default function TelaEditarUsuario() {
   const userData = usuariosMock[1];
 
   const [nome, setNome] = useState(userData.nome);
-  const [user, setUser] = useState(userData.usuario);
+  const [user, setUser] = useState(userData.nomeUsuario);
   const [email] = useState(userData.email);
   const [telefone, setTelefone] = useState(userData.telefone);
-  const [data, setData] = useState(userData.nascimento);
-
-  const [foto, setFoto] = useState(userData.fotoPerfil);
+  const [data, setData] = useState(userData.dataNascimento);
+  const [foto, setFoto] = useState(userData.fotoUrl);
 
   const escolherImagem = async () => {
-    const permissao =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const permissao = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (!permissao.granted) {
       alert("Permissão necessária para acessar a galeria!");
@@ -52,18 +51,25 @@ export default function TelaEditarUsuario() {
     }
   };
 
+  const salvar = () => {
+    console.log("Dados salvos:");
+    console.log({ nome, user, telefone, data, foto });
+
+    navigation.goBack();
+  };
+
+  const cancelar = () => {
+    navigation.goBack();
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <ScrollView contentContainerStyle={styles.content}>
-        
-        {/* HEADER */}
-        <ProfileHeader
-          title="Editar perfil"
-          onBack={() => navigation.goBack()}
-          rightText="Salvar"
-          onRightPress={() => navigation.goBack()}
-        />
+      <ProfileHeader
+        username="Editar perfil"
+        onBack={() => navigation.goBack()}
+      />
 
+      <ScrollView contentContainerStyle={styles.content}>
         {/* FOTO */}
         <View style={styles.avatarSection}>
           <TouchableOpacity onPress={escolherImagem}>
@@ -77,9 +83,8 @@ export default function TelaEditarUsuario() {
           </TouchableOpacity>
         </View>
 
-        {/* FORM - INPUTS AJUSTADOS */}
+        {/* FORMULÁRIO */}
         <View style={styles.form}>
-          
           <View style={styles.inputWrapper}>
             <InputField
               label="Nome completo"
@@ -89,19 +94,11 @@ export default function TelaEditarUsuario() {
           </View>
 
           <View style={styles.inputWrapper}>
-            <InputField
-              label="Usuário"
-              value={user}
-              onChangeText={setUser}
-            />
+            <InputField label="Usuário" value={user} onChangeText={setUser} />
           </View>
 
           <View style={styles.inputWrapper}>
-            <InputField
-              label="Email"
-              value={email}
-              editable={false}
-            />
+            <InputField label="Email" value={email} editable={false} />
           </View>
 
           <View style={styles.inputWrapper}>
@@ -118,20 +115,32 @@ export default function TelaEditarUsuario() {
               label="Data de nascimento"
               value={data}
               onChangeText={setData}
-              placeholder="dd/mm/aaaa"
               keyboardType="numeric"
             />
           </View>
-
         </View>
 
+        {/* BOTÕES */}
+        <View style={styles.buttonsContainer}>
+          <PrimaryButton
+            title="Salvar"
+            onPress={salvar}
+            style={styles.saveButton}
+          />
+
+          <PrimaryButton
+            title="Cancelar"
+            onPress={cancelar}
+            style={styles.cancelButton}
+          />
+        </View>
       </ScrollView>
 
-      {/* NAVBAR */}
-      <NavBar />
+      <BottomNav />
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -164,8 +173,36 @@ const styles = StyleSheet.create({
   },
 
   inputWrapper: {
-    width: "90%",
+    width: "100%",
     maxWidth: 320,
     marginBottom: 10,
+  },
+
+  bottomNavContainer: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+
+  buttonsContainer: {
+    width: "100%",
+    alignItems: "center",
+    marginTop: 20,
+    marginBottom: 40,
+    paddingHorizontal: 35,
+    gap: 10,
+  },
+
+  saveButton: {
+    width: "90%",
+    maxWidth: 320,
+    backgroundColor: "#1E88E5",
+  },
+
+  cancelButton: {
+    width: "90%",
+    maxWidth: 320,
+    backgroundColor: "#999",
   },
 });

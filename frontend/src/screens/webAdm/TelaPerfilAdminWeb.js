@@ -4,7 +4,6 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 export default function TelaPerfilAdminWeb() {
   return (
     <View style={styles.container}>
-      {/* sidebar esquerda */}
       <View style={styles.sidebar}>
         <Image
           source={require('../../assets/logo.png')}
@@ -29,7 +28,6 @@ export default function TelaPerfilAdminWeb() {
         </TouchableOpacity>
       </View>
 
-      {/* conteúdo principal */}
       <View style={styles.main}>
         <Text style={styles.title}>Perfil do Administrador</Text>
 
@@ -38,7 +36,6 @@ export default function TelaPerfilAdminWeb() {
         </TouchableOpacity>
       </View>
 
-      {/* rodapé */}
       <View style={styles.footer}>
         <Text style={styles.footerText}>
           @COPYRIGHT. TODOS OS DIREITOS RESERVADOS.

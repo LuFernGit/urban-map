@@ -9,7 +9,7 @@ import {
   Image,
 } from "react-native";
 
-export default function TelaLoginWebAdm() {
+export default function TelaLoginAdminWeb() {
   return (
     <View style={styles.container}>
       <View style={styles.left}>

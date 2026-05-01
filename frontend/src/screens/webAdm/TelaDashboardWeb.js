@@ -2,7 +2,7 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 
-export default function TelaDashboardAdmWeb() {
+export default function TelaDashboardWeb() {
   return (
     <View style={styles.container}>
       <View style={styles.sidebar}>

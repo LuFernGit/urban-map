@@ -2,10 +2,9 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { useContext, useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-import BottomSheetComentarios from "../../components/BottomSheetComentarios";
+import BottomNav from "../../components/BottomNav";
 import CardDetalhes from "../../components/CardDetalhes";
 import HeaderDetalhes from "../../components/HeaderDetails";
-import NavBar from "../../components/NavBar";
 
 import { ThemeContext } from "../../context/ThemeContext";
 import { comentariosMock } from "../../mock/ComentariosMock";
@@ -71,13 +70,7 @@ export default function TelaDetalhesLocal() {
         />
       </ScrollView>
 
-      <NavBar />
-
-      <BottomSheetComentarios
-        bottomSheetRef={bottomSheetRef}
-        comentarios={comentariosFiltrados}
-        onEnviarComentario={adicionarComentario}
-      />
+      <BottomNav />
     </View>
   );
 }

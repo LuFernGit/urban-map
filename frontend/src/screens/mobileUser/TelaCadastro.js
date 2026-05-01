@@ -160,7 +160,6 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     marginTop: 25,
-
     marginBottom: 35,
     textAlign: "left",
     width: "90%",

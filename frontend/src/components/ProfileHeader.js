@@ -2,6 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ProfileHeader({
   username,
@@ -9,6 +10,7 @@ export default function ProfileHeader({
   onBackPress,
 }) {
   const { colors } = useContext(ThemeContext);
+  const navigation = useNavigation();
 
   return (
     <View
@@ -21,20 +23,23 @@ export default function ProfileHeader({
         },
       ]}
     >
-      <TouchableOpacity onPress={onBackPress} style={styles.side}>
+      <TouchableOpacity
+        onPress={onBackPress || (() => navigation.goBack())}
+        style={styles.side}
+      >
         <Ionicons name="chevron-back" size={28} color={colors.text} />
       </TouchableOpacity>
 
       <View style={styles.center}>
-        <Text
-          numberOfLines={1}
-          style={[styles.title, { color: colors.text }]}
-        >
+        <Text numberOfLines={1} style={[styles.title, { color: colors.text }]}>
           {username}
         </Text>
       </View>
 
-      <TouchableOpacity onPress={onSettingsPress} style={styles.side}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("ConfigAcessibilidade")}
+        style={styles.side}
+      >
         <Ionicons name="settings-outline" size={24} color={colors.text} />
       </TouchableOpacity>
     </View>

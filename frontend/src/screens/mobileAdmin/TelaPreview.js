@@ -9,6 +9,7 @@ import {
 } from "react-native";
 
 import BottomNav from "../../components/BottomNav";
+import BottomSheetComentarios from "../../components/BottomSheetComentarios";
 import Card from "../../components/Card";
 import Header from "../../components/Header";
 import ScrollToTopButton from "../../components/ScrollToTopButton";
@@ -16,24 +17,29 @@ import SearchBar from "../../components/SearchBar";
 import TelaFiltro from "../mobileUser/TelaFiltro";
 
 import { ThemeContext } from "../../context/ThemeContext";
+import { comentariosMock } from "../../mock/ComentariosMock";
 import { locaisMock } from "../../mock/LocaisMock";
 
-export default function TelaPrincipal() {
+export default function TelaPreview() {
   const [busca, setBusca] = useState("");
   const [lugares, setLugares] = useState([]);
-
+  const [comentarios, setComentarios] = useState([]);
+  const [localSelecionado, setLocalSelecionado] = useState(null);
   const [showButton, setShowButton] = useState(false);
   const [filtroVisivel, setFiltroVisivel] = useState(false);
+
   const [filtrosAplicados, setFiltrosAplicados] = useState([]);
 
   const { colors } = useContext(ThemeContext);
   const navigation = useNavigation();
 
   const scrollRef = useRef(null);
+  const bottomSheetRef = useRef(null);
   const slideAnim = useRef(new Animated.Value(320)).current;
 
   useEffect(() => {
     setLugares(locaisMock);
+    setComentarios(comentariosMock);
   }, []);
 
   const handleScroll = (event) => {
@@ -45,12 +51,26 @@ export default function TelaPrincipal() {
     scrollRef.current?.scrollTo({ y: 0, animated: true });
   };
 
+  const abrirComentarios = (lugar) => {
+    setLocalSelecionado(lugar);
+    bottomSheetRef.current?.expand();
+  };
+
+  const adicionarComentario = (novo) => {
+    setComentarios((prev) => [
+      { ...novo, localId: localSelecionado?.id },
+      ...prev,
+    ]);
+  };
+
+  const comentariosFiltrados = comentarios.filter(
+    (c) => c.localId === localSelecionado?.id,
+  );
+
   const filtrosIds = filtrosAplicados.map((f) => f.id);
 
   const filtrados = lugares.filter((l) => {
-    const matchNome = l.nome
-      .toLowerCase()
-      .includes(busca.toLowerCase());
+    const matchNome = l.nome.toLowerCase().includes(busca.toLowerCase());
 
     const matchTags =
       filtrosIds.length === 0 ||
@@ -99,6 +119,7 @@ export default function TelaPrincipal() {
           <Card
             key={item.id}
             lugar={item}
+            onComentarioPress={() => abrirComentarios(item)}
             onPress={() =>
               navigation.navigate("DetalhesLocal", { lugar: item })
             }
@@ -106,14 +127,15 @@ export default function TelaPrincipal() {
         ))}
       </ScrollView>
 
-      <ScrollToTopButton
-        visible={showButton}
-        onPress={scrollToTop}
-      />
-
+      <ScrollToTopButton visible={showButton} onPress={scrollToTop} />
       <BottomNav />
 
-      {/* FILTRO */}
+      <BottomSheetComentarios
+        bottomSheetRef={bottomSheetRef}
+        comentarios={comentariosFiltrados}
+        onEnviarComentario={adicionarComentario}
+      />
+
       {filtroVisivel && (
         <View style={styles.overlay}>
           <TouchableOpacity

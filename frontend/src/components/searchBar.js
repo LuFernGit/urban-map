@@ -6,7 +6,7 @@ import { ThemeContext } from "../context/ThemeContext";
 const ICON_SIZE = 20;
 
 export default function SearchBar({
-  value,
+  value = "",
   onChangeText,
   onClear,
   onFilterPress,
@@ -15,7 +15,6 @@ export default function SearchBar({
 
   return (
     <View style={styles.searchRow}>
-
       <View
         style={[
           styles.searchBox,
@@ -35,7 +34,7 @@ export default function SearchBar({
           style={[styles.input, { color: colors.text }]}
         />
 
-        {value.length > 0 && (
+        {value?.length > 0 && (
           <TouchableOpacity onPress={onClear} hitSlop={10}>
             <Ionicons
               name="close-circle"
@@ -47,13 +46,8 @@ export default function SearchBar({
       </View>
 
       <TouchableOpacity onPress={onFilterPress} hitSlop={10}>
-        <Ionicons
-          name="filter"
-          size={ICON_SIZE}
-          color={colors.text}
-        />
+        <Ionicons name="filter" size={ICON_SIZE} color={colors.text} />
       </TouchableOpacity>
-
     </View>
   );
 }
@@ -65,7 +59,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 16,
     marginBottom: 12,
-    marginTop: 5,
+    marginTop: 20,
   },
 
   searchBox: {

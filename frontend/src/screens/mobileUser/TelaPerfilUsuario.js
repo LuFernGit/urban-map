@@ -1,15 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
-import { View, StyleSheet, TouchableOpacity, Text, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { useState, useContext } from "react";
+import { useContext, useState } from "react";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { usuariosMock } from "../../mock/UsuariosMock";
 
+import BottomNav from "../../components/BottomNav";
+import PrimaryButton from "../../components/PrimaryButton";
 import ProfileHeader from "../../components/ProfileHeader";
 import ProfileInfo from "../../components/ProfileInfo";
 import ProfileStats from "../../components/ProfileStats";
-import PrimaryButton from "../../components/PrimaryButton";
-import NavBar from "../../components/NavBar";
 import { ThemeContext } from "../../context/ThemeContext";
 
 export default function TelaPerfilUsuario() {
@@ -20,8 +20,7 @@ export default function TelaPerfilUsuario() {
   const [foto, setFoto] = useState(usuario.fotoPerfil);
 
   const escolherImagem = async () => {
-    const permissao =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const permissao = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (!permissao.granted) {
       alert("Permissão necessária para acessar a galeria!");
@@ -41,38 +40,30 @@ export default function TelaPerfilUsuario() {
   };
 
   const confirmarSaida = () => {
-    Alert.alert(
-      "Deseja sair?",
-      "Tem certeza que deseja sair da sua conta?",
-      [
-        { text: "Cancelar", style: "cancel" },
-        {
-          text: "Sair",
-          style: "destructive",
-          onPress: () => {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: "Login" }],
-            });
-          },
+    Alert.alert("Deseja sair?", "Tem certeza que deseja sair da sua conta?", [
+      { text: "Cancelar", style: "cancel" },
+      {
+        text: "Sair",
+        style: "destructive",
+        onPress: () => {
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "Login" }],
+          });
         },
-      ]
-    );
+      },
+    ]);
   };
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.content}>
-        {/* HEADER */}
         <ProfileHeader
-          username={usuario.usuario}
-          onSettingsPress={() =>
-            navigation.navigate("ConfigAcessibilidade")
-          }
+          username={usuario.nomeUsuario}
+          onSettingsPress={() => navigation.navigate("ConfigAcessibilidade")}
           onBackPress={() => navigation.goBack()}
         />
 
-        {/* PERFIL */}
         <View style={styles.profileContainer}>
           <TouchableOpacity onPress={escolherImagem}>
             <ProfileInfo fotoPerfil={foto} name={usuario.nome} />
@@ -80,35 +71,22 @@ export default function TelaPerfilUsuario() {
 
           <ProfileStats likes={120} saved={18} />
 
-          {/* BOTÃO AJUSTADO SEM MEXER NO COMPONENTE */}
           <View style={styles.buttonWrapper}>
             <PrimaryButton
               title="Editar perfil"
-              onPress={() =>
-                navigation.navigate("EditarUsuario")
-              }
+              onPress={() => navigation.navigate("EditarUsuario")}
             />
           </View>
         </View>
 
-        {/* LOGOUT */}
-        <TouchableOpacity
-          style={styles.logout}
-          onPress={confirmarSaida}
-        >
-          <Text
-            style={[
-              styles.logoutText,
-              { color: colors.error || "red" },
-            ]}
-          >
+        <TouchableOpacity style={styles.logout} onPress={confirmarSaida}>
+          <Text style={[styles.logoutText, { color: colors.error || "red" }]}>
             Sair
           </Text>
         </TouchableOpacity>
       </View>
 
-      {/* NAVBAR */}
-      <NavBar />
+      <BottomNav />
     </View>
   );
 }
